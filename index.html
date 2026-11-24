@@ -1,0 +1,2779 @@
+﻿<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEX EUROPA L2 — Plateforme d'Excellence & Jury Oral IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   DESIGN SYSTEM - PALETTE PROFESSIONNELLE & VARIABLES
+   ===================================================== */
+:root {
+  /* LIGHT THEME */
+  --bg-app: #f4f6fa;
+  --bg-sidebar: #0f172a;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f8fafc;
+  --bg-highlight: #fffbeb;
+  --bg-quote: #f1f5f9;
+  
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-on-dark: #f8fafc;
+  
+  --border: #e2e8f0;
+  --border-focus: #3b82f6;
+  
+  --primary: #1e3a8a;
+  --primary-light: #2563eb;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  
+  --gold: #d97706;
+  --gold-glow: rgba(217, 119, 6, 0.15);
+  --gold-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+  
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 28px rgba(0,0,0,0.12);
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="dark"] {
+  /* DARK THEME - STYLE CABINE JURIDIQUE PREMIUM */
+  --bg-app: #090d16;
+  --bg-sidebar: #060911;
+  --bg-card: #0f172a;
+  --bg-card-subtle: #141e33;
+  --bg-highlight: #1e1b12;
+  --bg-quote: #131c2e;
+  
+  --text-main: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-on-dark: #f8fafc;
+  
+  --border: #1e293b;
+  --border-focus: #60a5fa;
+  
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --primary-glow: rgba(59, 130, 246, 0.2);
+  
+  --gold: #fbbf24;
+  --gold-glow: rgba(251, 191, 36, 0.2);
+  --gold-gradient: linear-gradient(135deg, #fbbf24, #d97706);
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 36px rgba(0,0,0,0.5);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =====================================================
+   SIDEBAR SUR LA GAUCHE (MENU FIXE ET PRO)
+   ===================================================== */
+.app-sidebar {
+  width: 290px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+.brand-header {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-title .gold-accent {
+  color: #facc15;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.brand-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* NAVIGATION PRINCIPALE */
+.nav-menu {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,0.05);
+  color: #f8fafc;
+}
+.nav-item.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.12);
+}
+.nav-item .icon { font-size: 1.15rem; width: 22px; text-align: center; }
+.nav-item .badge-pill {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: #cbd5e1;
+}
+
+/* SECTION SUJETS DANS LA SIDEBAR */
+.sidebar-subjects-section {
+  flex: 1;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px 16px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-section-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+  font-weight: 700;
+  padding: 0 8px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #f8fafc;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.sidebar-search:focus {
+  border-color: #3b82f6;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.sidebar-subjects-list {
+  flex: 1;
+  min-height: 400px;
+  max-height: calc(100vh - 360px);
+  overflow-y: auto;
+  list-style: none;
+  padding-right: 4px;
+}
+.sidebar-subjects-list::-webkit-scrollbar { width: 4px; }
+.sidebar-subjects-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+.sub-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  font-size: 0.81rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+.sub-item:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+.sub-item.active {
+  background: rgba(217, 119, 6, 0.2);
+  color: #facc15;
+  font-weight: 600;
+  border-left: 3px solid #facc15;
+}
+.sub-item .s-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #f59e0b;
+  min-width: 22px;
+}
+.sub-item .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #334155;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.sub-item.done .status-dot { background: var(--success); }
+
+/* SIDEBAR FOOTER (DARK MODE TOGGLE) */
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.2);
+}
+.theme-toggle-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #f8fafc;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   MAIN CONTENT AREA
+   ===================================================== */
+.app-main {
+  margin-left: 290px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-navbar {
+  height: 64px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  backdrop-filter: blur(10px);
+}
+.top-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.page-header-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+.prof-tag {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 14px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.main-scroll-container {
+  padding: 28px 36px 60px;
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   DASHBOARD / TABLEAU DE BORD DE RÉVISION
+   ===================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-focus);
+}
+.kpi-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary);
+  opacity: 0.8;
+}
+.kpi-card.gold::after { background: var(--gold-gradient); }
+.kpi-card.success::after { background: var(--success); }
+.kpi-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.kpi-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: 'Cinzel', serif;
+}
+.kpi-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* VUE D'ENSEMBLE DE LA PROGRESSION */
+.progress-matrix-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.subject-tile {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.subject-tile:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.subject-tile.done {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.04);
+}
+.tile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.tile-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+.tile-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.tile-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* =====================================================
+   CARTES DE CONTENU (FICHES, ORAL, QUIZ)
+   ===================================================== */
+.content-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+.content-card h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gold);
+}
+.content-card h3 {
+  font-size: 1.15rem;
+  color: var(--primary-light);
+  margin: 22px 0 10px;
+}
+.content-card h4 {
+  font-size: 1rem;
+  color: var(--text-main);
+  margin: 16px 0 8px;
+}
+.content-card p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.content-card ul, .content-card ol {
+  color: var(--text-secondary);
+  margin: 10px 0 14px 24px;
+  line-height: 1.7;
+}
+
+/* FORMULES EN SURBRILLANCE ET BLOCS CLÉS */
+.formula {
+  background: var(--bg-highlight);
+  border-left: 4px solid var(--gold);
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+.formula .source {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 6px;
+  font-size: 0.85rem;
+}
+.key-point {
+  background: var(--bg-quote);
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 16px 0;
+  line-height: 1.7;
+}
+.key-point strong { color: var(--primary-light); }
+.arret-ref {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* =====================================================
+   FLASHCARDS MODERNES
+   ===================================================== */
+.flashcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+.flashcard-modern {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.flashcard-modern:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-md);
+}
+.flashcard-modern .fc-q {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 0.94rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.flashcard-modern .fc-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+.flashcard-modern .fc-a {
+  display: none;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.flashcard-modern.revealed {
+  border-color: var(--gold);
+  background: var(--bg-card-subtle);
+}
+.flashcard-modern.revealed .fc-a { display: block; }
+.flashcard-modern.revealed .fc-hint { display: none; }
+
+/* =====================================================
+   QUIZ DE VÉRIFICATION
+   ===================================================== */
+.quiz-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.quiz-q-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 14px;
+}
+.quiz-opt {
+  display: block;
+  padding: 12px 16px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+.quiz-opt:hover {
+  background: var(--primary-glow);
+  border-color: var(--primary-light);
+  color: var(--text-main);
+}
+.quiz-opt.correct {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+  font-weight: 600;
+}
+.quiz-opt.wrong {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+}
+.quiz-opt.disabled { pointer-events: none; }
+.quiz-expl {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: var(--bg-quote);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  border-left: 3px solid var(--gold);
+}
+
+/* =====================================================
+   MODULE D'ORAL & AGENT GEMINI HYDROGEN 4
+   ===================================================== */
+.oral-hero {
+  background: linear-gradient(135deg, #090e1a 0%, #152238 60%, #1a2f4c 100%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  padding: 28px;
+  color: #fff;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.agent-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.agent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(251, 191, 36, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.pulse-light {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.oral-timer-display {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #f8fafc;
+  text-align: center;
+  margin: 18px 0;
+  letter-spacing: 2px;
+}
+.oral-timer-display.warning { color: var(--warning); }
+.oral-timer-display.danger { color: var(--error); animation: pulse 1s infinite; }
+
+.mic-action-btn {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: #fff;
+  border: none;
+  padding: 13px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+  transition: all 0.25s ease;
+}
+.mic-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(220, 38, 38, 0.5);
+}
+.mic-action-btn.listening {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.25);
+  animation: micPulse 1.4s infinite;
+}
+@keyframes micPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.transcript-console {
+  width: 100%;
+  min-height: 160px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  resize: vertical;
+  margin-top: 10px;
+}
+.transcript-console:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* BOUTONS D'ACTION */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+.btn-gold { background: var(--gold-gradient); color: #fff; box-shadow: 0 2px 10px var(--gold-glow); }
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--gold-glow); }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  background: var(--bg-card-subtle);
+  border-color: var(--text-secondary);
+}
+.btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+
+/* FEEDBACK DU JURY IA */
+.jury-feedback-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: var(--shadow-md);
+  display: none;
+}
+.jury-score-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 4px 16px var(--gold-glow);
+}
+
+/* CORRIGE DETATAILLE */
+.corrige-box {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+  display: none;
+}
+.corrige-box.show { display: block; }
+
+/* PROGRESS BAR */
+.progress-rail {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.progress-fill-bar {
+  height: 100%;
+  background: var(--gold-gradient);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* PAGES VISIBILITY */
+.app-view { display: none; }
+.app-view.active { display: block; animation: fadeIn 0.25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 820px) {
+  .app-sidebar { width: 70px; }
+  .brand-title span, .brand-sub, .sidebar-section-title, .sidebar-search, .sub-item span, .badge-pill, .theme-toggle-btn span { display: none; }
+  .app-main { margin-left: 70px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .main-scroll-container { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- =====================================================
+     MENU LATÉRAL SUR LA GAUCHE (SIDEBAR PRO)
+     ===================================================== -->
+<aside class="app-sidebar">
+  <div class="brand-header">
+    <div class="brand-title">
+      <span>🏛️</span>
+      <span>LEX <span class="gold-accent">EUROPA</span></span>
+    </div>
+    <div class="brand-sub">Droit de l'UE — L2 Droit Capitole</div>
+  </div>
+
+  <nav class="nav-menu">
+    <a class="nav-item active" onclick="switchView('dashboard')">
+      <span class="icon">📊</span>
+      <span>Tableau de bord</span>
+    </a>
+    <a class="nav-item" onclick="switchView('fiches')">
+      <span class="icon">📋</span>
+      <span>Fiches du cours</span>
+      <span class="badge-pill">20</span>
+    </a>
+    <a class="nav-item" onclick="switchView('flashcards')">
+      <span class="icon">🃏</span>
+      <span>Flashcards</span>
+      <span class="badge-pill" id="navFcCount">0</span>
+    </a>
+    <a class="nav-item" onclick="switchView('quiz')">
+      <span class="icon">✅</span>
+      <span>Quiz de vérification</span>
+      <span class="badge-pill" id="navQuizCount">0</span>
+    </a>
+    <a class="nav-item" onclick="switchView('oral')">
+      <span class="icon">🎤</span>
+      <span>Oral & Jury IA</span>
+      <span class="badge-pill" style="background:rgba(251,191,36,0.2);color:#facc15;">10 min</span>
+    </a>
+  </nav>
+
+  <!-- LISTE DES 20 SUJETS DE COURS -->
+  <div class="sidebar-subjects-section">
+    <div class="sidebar-section-title">
+      <span>20 Sujets d'Oral</span>
+      <span id="sidebarProgressCount" style="color:#facc15;">0/20</span>
+    </div>
+    <input type="text" class="sidebar-search" placeholder="🔍 Filtrer les sujets..." oninput="filterSidebarSubjects(this.value)">
+    <ul class="sidebar-subjects-list" id="sidebarSubjectsUl"></ul>
+  </div>
+
+  <div class="sidebar-footer">
+    <button class="theme-toggle-btn" onclick="toggleTheme()">
+      <span id="themeBtnIcon">☀️</span>
+      <span id="themeBtnText">Mode Clair</span>
+    </button>
+  </div>
+</aside>
+
+<!-- =====================================================
+     ZONE PRINCIPALE DE L'APPLICATION
+     ===================================================== -->
+<main class="app-main">
+  <!-- TOPBAR HEADER -->
+  <header class="top-navbar">
+    <div class="top-title-area">
+      <h1 class="page-header-title" id="currentViewTitle">Tableau de bord de révision</h1>
+      <span class="prof-tag">Cours de M. le Professeur Marc Blanquet</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="text-align:right;">
+        <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Progression Globale</div>
+        <div style="font-size:0.88rem;font-weight:800;color:var(--gold);" id="topPercentLabel">0%</div>
+      </div>
+      <div style="width:90px;" class="progress-rail">
+        <div class="progress-fill-bar" id="topProgressBar" style="width:0%;"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-scroll-container">
+
+    <!-- =====================================================
+         VUE 1 : TABLEAU DE BORD DE RÉVISION
+         ===================================================== -->
+    <section class="app-view active" id="view-dashboard">
+      <!-- 4 KPI CARDS -->
+      <div class="dashboard-grid">
+        <div class="kpi-card gold">
+          <div class="kpi-label">Sujets Maîtrisés</div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="kpiDoneCount">0</div>
+            <span style="font-size:0.85rem;color:var(--text-muted);">/ 20</span>
+          </div>
+          <div class="kpi-sub" id="kpiDonePercent">0% du programme révisé</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Flashcards Prêtes</div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="kpiFcTotal">0</div>
+            <span style="font-size:0.85rem;color:var(--text-muted);">cartes</span>
+          </div>
+          <div class="kpi-sub">Mémorisation active des arrêts</div>
+        </div>
+
+        <div class="kpi-card success">
+          <div class="kpi-label">Questions Quiz</div>
+          <div class="kpi-value-row">
+            <div class="kpi-value" id="kpiQuizTotal">0</div>
+            <span style="font-size:0.85rem;color:var(--text-muted);">QCM</span>
+          </div>
+          <div class="kpi-sub">Validation des notions clés</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Simulation d'Oral</div>
+          <div class="kpi-value-row">
+            <div class="kpi-value">10</div>
+            <span style="font-size:0.85rem;color:var(--text-muted);">min</span>
+          </div>
+          <div class="kpi-sub">Avec Jury IA Gemini Hydrogen 4</div>
+        </div>
+      </div>
+
+      <!-- MATRIX DES 20 SUJETS -->
+      <div class="progress-matrix-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div>
+            <h2 style="font-size:1.15rem;font-weight:700;color:var(--text-main);margin:0;">Matrice d'avancement des 20 sujets d'oral</h2>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:3px;">Cliquez sur un sujet pour ouvrir instantanément sa fiche de révision</div>
+          </div>
+          <div style="display:flex;gap:12px;font-size:0.75rem;color:var(--text-muted);">
+            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--success);"></span> Révisé</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#334155;"></span> À travailler</span>
+          </div>
+        </div>
+        <div class="matrix-grid" id="matrixGrid"></div>
+      </div>
+
+      <!-- BANDEAU JURY IA SUR LE DASHBOARD -->
+      <div class="oral-hero" style="margin-top:10px;">
+        <div class="agent-header-row">
+          <div>
+            <div class="agent-badge">
+              <span class="pulse-light"></span>
+              JURY INTELLIGENT DISPONIBLE
+            </div>
+            <h3 style="font-family:'Cinzel',serif;font-size:1.35rem;margin:12px 0 6px;color:#fff;">Prêt pour votre entraînement oral ?</h3>
+            <p style="font-size:0.88rem;color:#cbd5e1;max-width:650px;margin:0;">
+              L'Agent <strong>Gemini Hydrogen 4</strong> écoute votre prestation de 10 minutes en direct par micro, analyse la structure de votre exposé (I. A/B, II. A/B), vérifie la citation des arrêts fondamentaux de M. Blanquet et vous attribue une note sur 20.
+            </p>
+          </div>
+          <div>
+            <button class="btn btn-gold" onclick="switchView('oral')">
+              🎤 Lancer une simulation d'oral
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         VUE 2 : FICHES DU COURS
+         ===================================================== -->
+    <section class="app-view" id="view-fiches">
+      <div id="ficheContainer">
+        <div class="content-card">
+          <h2>Sélectionnez un sujet pour afficher sa fiche</h2>
+          <p>Choisissez l'un des 20 sujets dans le menu de gauche pour consulter la synthèse complète de cours avec formules jurisprudentielles en surbrillance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         VUE 3 : FLASHCARDS
+         ===================================================== -->
+    <section class="app-view" id="view-flashcards">
+      <div class="content-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="margin:0;border:none;padding:0;" id="fcSubjectTitle">Flashcards de révision</h2>
+            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">Mémorisation active : cliquez sur la carte pour révéler la solution juridique</div>
+          </div>
+          <span class="badge-pill" id="fcCurrentCountBadge" style="background:var(--primary-glow);color:var(--primary-light);">0 cartes</span>
+        </div>
+        <div class="flashcards-grid" id="flashcardsGrid"></div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         VUE 4 : QUIZ DE VÉRIFICATION
+         ===================================================== -->
+    <section class="app-view" id="view-quiz">
+      <div class="content-card">
+        <h2 id="quizSubjectTitle">Quiz d'auto-évaluation</h2>
+        <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;">Testez votre rigueur juridique avant l'épreuve orale</div>
+        <div id="quizContainer"></div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         VUE 5 : SIMULATION ORALE & JURY GEMINI HYDROGEN 4
+         ===================================================== -->
+    <section class="app-view" id="view-oral">
+      <div class="oral-hero">
+        <div class="agent-header-row">
+          <div>
+            <div class="agent-badge">
+              <span class="pulse-light"></span>
+              AGENT GEMINI HYDROGEN 4 — JURY D'ORAL L2
+            </div>
+            <h3 style="font-family:'Cinzel',serif;font-size:1.45rem;color:#fff;margin:10px 0 4px;" id="oralSubjectHead">Sujet d'oral</h3>
+            <div style="font-size:0.85rem;color:#94a3b8;">Format : 10 minutes d'exposé chronométré + 3 questions du Pr Blanquet</div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-sm btn-outline" style="border-color:#facc15;color:#facc15;" onclick="loadSampleDemoOral()">
+              💡 Démo d'oral juridique
+            </button>
+          </div>
+        </div>
+
+        <div class="oral-timer-display" id="oralMainTimer">10:00</div>
+
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+          <button class="btn btn-primary" id="oralStartBtn" onclick="toggleTimer()">
+            ▶ Démarrer le chrono 10 min
+          </button>
+          <button class="btn btn-outline" onclick="resetOralTimer()">
+            🔄 Réinitialiser
+          </button>
+          <button class="btn btn-gold" onclick="toggleCorrigeView()">
+            📝 Plan type & Corrigé
+          </button>
+        </div>
+      </div>
+
+      <!-- CONSOLE D'ÉCOUTE ET SAISIE -->
+      <div class="content-card" style="margin-top:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;">
+          <div>
+            <strong style="color:var(--text-main);font-size:1.05rem;">🎙️ Retranscription vocale en temps réel (Microphone)</strong>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Activez le micro pour que Gemini Hydrogen 4 retranscrive votre oral, ou collez votre retranscription.</div>
+          </div>
+          <span style="font-size:0.75rem;padding:4px 10px;border-radius:12px;background:var(--bg-card-subtle);font-weight:600;color:var(--primary-light);">Web Speech API</span>
+        </div>
+
+        <div style="display:flex;justify-content:center;align-items:center;gap:14px;margin:20px 0;flex-wrap:wrap;">
+          <button id="micBtn" class="mic-action-btn" onclick="toggleMicrophone()">
+            🎙️ Activer le micro (Écoute IA)
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="clearOralText()">
+            🗑️ Effacer
+          </button>
+        </div>
+
+        <div id="micStatusText" style="font-size:0.84rem;color:var(--primary-light);font-style:italic;min-height:22px;text-align:center;">
+          En attente du microphone ou de votre saisie...
+        </div>
+
+        <textarea id="transcriptTextarea" class="transcript-console" placeholder="Votre discours apparaîtra ici au fur et à mesure que vous parlerez... Vous pouvez également modifier le texte à la main."></textarea>
+
+        <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:16px;">
+          <span id="aiThinkingStatus" style="display:none;font-size:0.85rem;color:var(--gold);font-weight:600;">
+            ⚙️ Gemini Hydrogen 4 évalue votre prestation juridique...
+          </span>
+          <button class="btn btn-gold" id="evalActionBtn" onclick="runAIEvaluation()">
+            ✨ Évaluer ma prestation (Gemini Hydrogen 4)
+          </button>
+        </div>
+
+        <!-- RAPPORT D'ÉVALUATION IA -->
+        <div id="juryFeedbackBox" class="jury-feedback-wrapper">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <h3 style="margin:0;font-family:'Cinzel',serif;font-size:1.3rem;color:var(--text-main);">Rapport de Jury — Gemini Hydrogen 4</h3>
+                <span class="badge-pill" id="scoreAppreciationBadge" style="background:var(--success);color:#fff;">Très Bien</span>
+              </div>
+              <div style="font-size:0.82rem;color:var(--text-muted);margin-top:4px;">Grille d'évaluation conforme aux standards universitaires (L2 Droit Capitole)</div>
+            </div>
+            <div class="jury-score-badge" id="juryScoreBadge">
+              <span style="font-size:1.6rem;" id="scoreDisplayNum">16</span>
+              <span style="font-size:0.65rem;font-weight:600;opacity:0.9;">/ 20</span>
+            </div>
+          </div>
+
+          <div id="juryDetailedFeedbackContent" style="margin-top:18px;"></div>
+
+          <!-- QUESTIONS DU PROF BLANQUET -->
+          <div style="margin-top:18px;background:var(--bg-highlight);border:1px solid rgba(217,119,6,0.3);border-radius:10px;padding:18px;">
+            <h4 style="margin:0 0 10px 0;color:var(--gold);display:flex;align-items:center;gap:8px;">
+              <span>❓ Questions de fin d'oral du Professeur Marc Blanquet (Jury) :</span>
+            </h4>
+            <div id="juryQuestionsList" style="font-size:0.9rem;color:var(--text-main);"></div>
+          </div>
+        </div>
+
+        <!-- PLAN TYPE & CORRIGÉ -->
+        <div id="corrigeContainer" class="corrige-box"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- SCRIPT CONTENANT LES DONNÉES ET LA LOGIQUE COMPLÈTE -->
+<script>
+const subjects = [
+// SUJET 1
+{
+  id:1,
+  title:"La portée juridique des valeurs fondatrices de l'Union européenne",
+  fiche:`
+<h3>I. L'identification des valeurs fondatrices</h3>
+<h4>A. L'article 2 TUE</h4>
+<p>L'Union est fondée sur les valeurs de <strong>dignité humaine, liberté, démocratie, égalité, État de droit, respect des droits de l'homme</strong> (y compris les droits des minorités). Ces valeurs sont « communes aux États membres dans une société caractérisée par le <strong>pluralisme, la non-discrimination, la tolérance, la justice, la solidarité et l'égalité entre les femmes et les hommes</strong> ».</p>
+<div class="formula">« L'Union est fondée sur les valeurs de respect de la dignité humaine, de liberté, de démocratie, d'égalité, de l'État de droit, ainsi que de respect des droits de l'homme… »<span class="source">— Article 2 TUE</span></div>
+<p><strong>Deux listes dans l'article 2 :</strong> la première (valeurs fondatrices) et la seconde (caractéristiques de la société). La CJUE traite les deux de manière <strong>indissociable</strong> (cf. aff. C-769/22, <span class="arret-ref">Commission c. Hongrie</span>).</p>
+<p>Ces valeurs ne définissent pas l'originalité juridique de l'Union mais son <strong>identité politique</strong> en tant que groupe d'États. Elles sont <strong>imposées</strong> (adhésion = adhésion aux valeurs) ; d'autres caractéristiques restent <strong>libres</strong> (forme de l'État, langue…).</p>
+
+<h4>B. La distinction valeurs/principes</h4>
+<p>Le préambule de la Charte des droits fondamentaux utilise tantôt « valeurs », tantôt « principes ». La distinction est à relativiser : « <em>valeurs</em> » appelle davantage d'adhésion que « principes ».</p>
+
+<h3>II. La portée juridique effective des valeurs</h3>
+<h4>A. Les valeurs conditionnent l'adhésion (art. 49 TUE)</h4>
+<p>Tout État candidat doit respecter les valeurs de l'article 2 : ce sont des <strong>critères d'adhésion</strong>.</p>
+
+<h4>B. Les valeurs continuent de s'imposer</h4>
+<div class="formula">Dans l'arrêt du 20 avril 2021, <strong>Repubblika</strong>, la Cour énonce que le respect des valeurs est fondamental et qu'il est contrôlé.<span class="source">— CJUE, Repubblika, 2021</span></div>
+
+<h4>C. Le mécanisme de sanction : l'article 7 TUE</h4>
+<p>Depuis Amsterdam (1997) : un État violant les valeurs peut se voir <strong>retirer son droit de vote au Conseil</strong> (exige l'<strong>unanimité</strong>). Mécanisme <strong>peu efficace</strong> : Pologne et Hongrie se sont défendues l'une l'autre.</p>
+
+<h4>D. La solution financière</h4>
+<p>Conditionnalité budgétaire : <strong>règlement 2020/2092</strong> (mécanisme de conditionnalité liée à l'État de droit). Le versement des subventions de l'Union est conditionné au respect des principes. Validé par la CJUE le <strong>16 février 2022</strong> (<span class="arret-ref">Hongrie c. Parlement et Conseil, C-156/21 ; Pologne c. Parlement et Conseil, C-157/21</span>).</p>
+
+<h4>E. La solution jurisprudentielle</h4>
+<p>La CJUE a condamné la Pologne et la Hongrie pour atteinte à l'<strong>indépendance de la justice</strong>. Raisonnement : les juges nationaux appliquent le droit de l'Union → l'Union peut vérifier leur indépendance.</p>
+
+<h4>F. L'article 2 est-il contraignant par lui-même ?</h4>
+<div class="formula">Dans les arrêts du 16 février 2022, la Cour affirme que l'article 2 « ne se réduit pas à une déclaration d'intention politique : il énonce des valeurs concrétisées dans des principes comportant des obligations juridiquement contraignantes pour les États membres ».<span class="source">— CJUE, 16 février 2022</span></div>
+<p>Évolution : dans l'aff. <span class="arret-ref">C-769/22</span>, la Cour reconnaît que l'article 2 est <strong>lui-même contraignant</strong>. Arrêt du <strong>21 avril 2026</strong> : condamnation de la Hongrie sur le fondement direct de l'article 2. → <strong>Système de valeurs juridiquement contraignant.</strong></p>
+
+<div class="key-point"><strong>À retenir :</strong> Les valeurs de l'article 2 sont passées du stade de déclaration politique à celui de <strong>norme juridique contraignante</strong>, grâce à : la conditionnalité de l'adhésion (art. 49), le mécanisme de sanction (art. 7, inefficace), la conditionnalité financière (règlement 2020/2092) et surtout la jurisprudence de la CJUE (arrêts de 2022 et 2026).</div>
+  `,
+  flashcards:[
+    {q:"Quelles sont les valeurs fondatrices de l'article 2 TUE ?",a:"Dignité humaine, liberté, démocratie, égalité, État de droit, respect des droits de l'homme (y compris droits des minorités). Société caractérisée par le pluralisme, la non-discrimination, la tolérance, la justice, la solidarité, l'égalité hommes-femmes."},
+    {q:"L'article 2 TUE comporte-t-il une ou deux listes de valeurs ?",a:"Deux listes : (1) les valeurs sur lesquelles l'Union est « fondée » ; (2) les caractéristiques de la « société » (pluralisme, solidarité…). Selon la CJUE (aff. C-769/22), elles sont indissociables."},
+    {q:"Quel est le mécanisme de sanction de l'article 7 TUE ?",a:"Un État violant les valeurs peut se voir retirer son droit de vote au Conseil. Exige l'unanimité pour la constatation de la violation → peu efficace (Pologne et Hongrie se défendent mutuellement)."},
+    {q:"Qu'est-ce que le règlement 2020/2092 ?",a:"Le mécanisme de conditionnalité liée à l'État de droit : le versement des subventions de l'Union est conditionné au respect des principes. Validé par la CJUE le 16 février 2022."},
+    {q:"L'article 2 TUE est-il juridiquement contraignant par lui-même ?",a:"Oui, depuis l'évolution jurisprudentielle. Les arrêts du 16 février 2022 affirment que les valeurs sont « concrétisées dans des principes comportant des obligations juridiquement contraignantes ». L'arrêt du 21 avril 2026 condamne la Hongrie directement sur le fondement de l'article 2."},
+    {q:"Quel est l'arrêt Repubblika (2021) ?",a:"CJUE, 20 avril 2021 : la Cour énonce que le respect des valeurs de l'art. 2 est fondamental et qu'il est contrôlé, même une fois l'État devenu membre."},
+    {q:"Pourquoi ces valeurs ne définissent-elles pas l'originalité juridique de l'Union ?",a:"Elles relèvent de l'identité politique (démocratie, droits de l'homme ne sont pas propres à l'UE). C'est leur partage entre les 27 États qui rend tolérable la mise en commun de l'exercice de la souveraineté."},
+    {q:"Qu'est-ce que la distinction entre valeurs imposées et éléments libres ?",a:"Imposé : adhérer aux valeurs de l'art. 2 (démocratie, État de droit…). Libre : forme de l'État (république, monarchie), langue, religion d'État… L'Union respecte l'identité nationale des États (art. 4 §2 TUE)."},
+  ],
+  quiz:[
+    {q:"L'article 2 TUE contient :",options:["Une seule liste de valeurs","Deux listes indissociables","Trois catégories distinctes","Aucune valeur contraignante"],correct:1,expl:"L'article 2 contient deux listes : les valeurs fondatrices et les caractéristiques de la société. La CJUE les considère indissociables (aff. C-769/22)."},
+    {q:"Le mécanisme de l'article 7 TUE permet de :",options:["Exclure un État membre","Retirer le droit de vote au Conseil","Imposer des sanctions financières automatiques","Suspendre tous les droits de l'État"],correct:1,expl:"L'article 7 permet de retirer le droit de vote au Conseil, mais exige l'unanimité pour constater la violation, ce qui le rend peu efficace."},
+    {q:"L'arrêt du 21 avril 2026 contre la Hongrie est fondé sur :",options:["L'article 7 TUE","L'article 19 TUE","Directement l'article 2 TUE","Le règlement 2020/2092"],correct:2,expl:"C'est la première condamnation directement fondée sur l'article 2 TUE, ce qui confirme son caractère juridiquement contraignant par lui-même."},
+    {q:"Le règlement 2020/2092 porte sur :",options:["La procédure d'adhésion","La conditionnalité budgétaire liée à l'État de droit","La réforme de la CJUE","Les élections européennes"],correct:1,expl:"Ce règlement conditionne le versement des subventions de l'Union au respect des principes de l'État de droit. Validé par la CJUE le 16 février 2022."},
+  ],
+  corrige:`
+<h3>Plan de corrigé type (10 min)</h3>
+<h4>Accroche</h4>
+<p>L'arrêt du 21 avril 2026 condamnant la Hongrie directement sur le fondement de l'article 2 TUE illustre l'aboutissement d'une évolution majeure : les valeurs fondatrices de l'Union ne sont plus de simples proclamations, elles sont devenues des normes juridiquement contraignantes.</p>
+<h4>Problématique</h4>
+<p>Dans quelle mesure les valeurs fondatrices de l'Union européenne, initialement perçues comme des principes politiques, ont-elles acquis une véritable portée juridique contraignante ?</p>
+<h4>I. L'identification et la signification des valeurs fondatrices</h4>
+<p>A. Le contenu de l'article 2 TUE : deux listes indissociables de valeurs<br>
+B. La signification : identité politique de l'Union, valeurs imposées / éléments libres<br>
+C. Le partage des valeurs comme condition de la mise en commun de la souveraineté</p>
+<h4>II. La portée juridique croissante des valeurs</h4>
+<p>A. Les valeurs comme condition d'adhésion (art. 49) et obligation permanente (Repubblika, 2021)<br>
+B. Le mécanisme de l'article 7 TUE : une sanction peu efficace<br>
+C. Les solutions alternatives : conditionnalité financière (règlement 2020/2092) et jurisprudence (arrêts du 16 février 2022, identité de l'Union en tant qu'ordre juridique commun)<br>
+D. L'article 2 contraignant par lui-même (arrêt du 21 avril 2026)</p>
+<h4>Conclusion</h4>
+<p>D'un constat politique, les valeurs sont devenues le fondement d'un véritable système juridique contraignant, illustrant la transformation de l'Union en une « union de valeurs ».</p>
+  `
+},
+// SUJET 2
+{
+  id:2,
+  title:"Les bases juridiques en droit de l'Union européenne (problématique générale et contentieux)",
+  fiche:`
+<h3>I. La problématique générale</h3>
+<h4>A. Le principe des compétences d'attribution</h4>
+<p>L'Union n'a que les compétences que les traités lui attribuent. Pour tout acte des institutions, il faut identifier la <strong>base juridique</strong> = la disposition des traités autorisant l'Union à adopter l'acte. L'acte doit reposer sur la <strong>bonne</strong> base juridique.</p>
+
+<h4>B. L'exigence de sécurité juridique</h4>
+<p>Tout acte doit indiquer sa base juridique (généralement dans le préambule). La clarté et la prévisibilité du droit sont protégées, car la base juridique détermine la <strong>forme</strong> de l'acte.</p>
+
+<h4>C. L'importance constitutionnelle</h4>
+<p>La base juridique détermine la <strong>procédure</strong> d'adoption : nature du vote (unanimité, majorité qualifiée…), rôle du Parlement. → <strong>Luttes de pouvoir entre institutions</strong>. La base juridique définit aussi la <strong>philosophie de l'acte</strong>.</p>
+
+<h3>II. Le contentieux de la base juridique</h3>
+<h4>A. Les critères d'identification</h4>
+<div class="formula">Le choix de la base juridique doit se fonder sur des « éléments objectifs susceptibles de contrôle juridictionnel », notamment le <strong>but</strong> et le <strong>contenu</strong> de l'acte.<span class="source">— CJCE, Dioxyde de titane, 1991</span></div>
+<p>Pour les actes internationaux : critère supplémentaire du <strong>contexte</strong> (inspiré de la Convention de Vienne, art. 31). Critères : <strong>but, contenu, contexte</strong>.</p>
+
+<h4>B. La gestion de la pluralité de bases</h4>
+<p><strong>Principe :</strong> choisir une <strong>base unique</strong> selon le but profond de l'acte.</p>
+<p><strong>Méthode 1 :</strong> La disposition <strong>spéciale</strong> prévaut sur la générale (arrêt <span class="arret-ref">Hormones</span>, 1988).</p>
+<p><strong>Méthode 2 :</strong> Le <strong>centre de gravité</strong> — faire prévaloir le principal sur l'accessoire (arrêt <span class="arret-ref">Tchernobyl</span>, 1991).</p>
+<p><strong>Exception :</strong> admission exceptionnelle d'une <strong>base multiple</strong> quand aucune dimension ne l'emporte.</p>
+<p><strong>Exception à l'exception :</strong> refus de la base multiple si les procédures sont <strong>incompatibles</strong>, notamment si cela porte atteinte aux <strong>prérogatives du Parlement européen</strong>.</p>
+
+<div class="key-point"><strong>Critique du prof :</strong> Le critère de protection des prérogatives du Parlement n'est <strong>pas objectif</strong>. La légitimité de l'Union est à la fois démocratique (Parlement) et assise sur les États (Conseil). Préférer systématiquement le Parlement est discutable.</div>
+  `,
+  flashcards:[
+    {q:"Qu'est-ce qu'une base juridique en droit de l'UE ?",a:"La disposition des traités qui autorise l'Union à adopter un acte. Principe des compétences d'attribution : l'UE n'a que les compétences attribuées par les traités."},
+    {q:"Quels sont les critères pour identifier la bonne base juridique ?",a:"Éléments objectifs : le but et le contenu de l'acte (arrêt Dioxyde de titane, 1991). Pour les actes internationaux : aussi le contexte (Convention de Vienne, art. 31)."},
+    {q:"Qu'est-ce que la méthode du centre de gravité ?",a:"Quand un acte touche plusieurs domaines, on retient la base correspondant à la dimension principale/le but principal de l'acte (arrêt Tchernobyl, 1991). Le principal prévaut sur l'accessoire."},
+    {q:"Quand la base multiple est-elle admise ?",a:"Exceptionnellement, quand il est impossible de dire qu'une dimension l'emporte. Mais elle est refusée si les procédures sont trop incompatibles ou portent atteinte aux prérogatives du Parlement."},
+    {q:"Pourquoi le choix de la base juridique a-t-il une importance constitutionnelle ?",a:"Parce que la base détermine la procédure d'adoption (unanimité vs majorité qualifiée), le rôle du Parlement, et donc la répartition du pouvoir entre institutions."},
+  ],
+  quiz:[
+    {q:"Le choix de la base juridique dépend de :",options:["La conviction de l'institution auteur","Le but et le contenu de l'acte","La volonté du Parlement européen","Le vote du Conseil européen"],correct:1,expl:"Arrêt Dioxyde de titane (1991) : le choix se fonde sur des éléments objectifs, notamment le but et le contenu de l'acte, pas sur la conviction de l'auteur."},
+    {q:"La méthode du centre de gravité consiste à :",options:["Choisir la base la plus récente","Retenir la dimension principale de l'acte","Toujours utiliser plusieurs bases","Privilégier le Conseil"],correct:1,expl:"Arrêt Tchernobyl (1991) : on s'intéresse au but principal de l'acte pour déterminer la base juridique appropriée."},
+    {q:"La base multiple est :",options:["Toujours admise","Exceptionnellement admise","Systématiquement refusée","Obligatoire pour les actes complexes"],correct:1,expl:"La base multiple n'est admise qu'exceptionnellement, quand aucune dimension ne l'emporte, et refusée si les procédures sont incompatibles."},
+  ],
+  corrige:`
+<h3>Plan de corrigé type</h3>
+<h4>Accroche</h4>
+<p>Le contentieux de la base juridique illustre l'enjeu constitutionnel de la répartition des compétences dans l'Union.</p>
+<h4>Problématique</h4>
+<p>Comment le choix de la base juridique assure-t-il l'équilibre institutionnel et le respect des compétences d'attribution dans l'Union ?</p>
+<h4>I. La problématique générale des bases juridiques</h4>
+<p>A. Le principe des compétences d'attribution<br>B. L'exigence de sécurité juridique<br>C. L'importance constitutionnelle (procédure, luttes de pouvoir)</p>
+<h4>II. Le contentieux : les méthodes de résolution</h4>
+<p>A. Les critères objectifs (but, contenu, contexte — Dioxyde de titane)<br>B. Spécial/général (Hormones) et centre de gravité (Tchernobyl)<br>C. L'exception de la base multiple et ses limites</p>
+  `
+},
+// SUJETS 3-20 — Je continue avec les données essentielles
+];
+
+// Je vais ajouter les sujets 3 à 20 via une fonction d'initialisation
+// pour garder le fichier gérable
+
+function addSubject(id,title,fiche,flashcards,quiz,corrige) {
+  subjects.push({id,title,fiche,flashcards,quiz,corrige});
+}
+
+</script>
+<script>
+// SUJET 3
+addSubject(3,"Les sources primaires du droit de l'Union européenne",
+`<h3>I. La composition du droit primaire</h3>
+<h4>A. La diversité des sources primaires</h4>
+<p>Cinq types d'actes :</p>
+<ol>
+<li><strong>Traités institutifs</strong> : Paris (CECA), Rome (CEE et CEEA, 25 mars 1957)</li>
+<li><strong>Traités d'adhésion</strong></li>
+<li><strong>Grands traités de révision</strong> : Acte unique (1986), Maastricht (1992), Amsterdam (1997), Nice (2001), Lisbonne (2007)</li>
+<li><strong>Protocoles et déclarations</strong> : protocoles = même valeur que les traités ; déclarations ≠ droit primaire mais doivent être prises en compte</li>
+<li><strong>Actes institutionnels</strong> : décision du Conseil de 1970 (ressources propres), acte de Bruxelles 1976 (élection du PE au SUD). Ce ne sont pas des traités mais ils en réunissent les caractéristiques.</li>
+</ol>
+<p>Depuis Lisbonne : <strong>TUE + TFUE + Charte des droits fondamentaux</strong> (même valeur juridique, art. 6 §1 TUE).</p>
+
+<h4>B. La cohérence entre les sources primaires</h4>
+<p><strong>1er temps (1957)</strong> : prééminence fonctionnelle du traité CEE (lex generalis) sur les traités sectoriels (lex specialis). Exemple : <span class="arret-ref">Busseni</span> (22 février 1990) — renvoi préjudiciel en interprétation étendu à la CECA.</p>
+<p><strong>2e temps (1992)</strong> : Maastricht crée les 3 piliers. Clause d'intégrité de l'article 47 TUE : non-contamination du pilier communautaire. Contrôle extensif de la Cour : <span class="arret-ref">Visa de transit aéroportuaire</span> (12 mai 1998).</p>
+<p><strong>3e temps (Lisbonne)</strong> : Article 40 TUE = clause de cohérence (réciproque, limitée à la PESC). Art. 106 bis Euratom : lex specialis.</p>
+
+<h3>II. Le statut juridique du droit primaire</h3>
+<h4>A. La nature : formellement conventionnelle, matériellement constitutionnelle</h4>
+<div class="formula">« La Communauté économique européenne est une communauté de droit en ce que ni ses États membres ni ses institutions n'échappent au contrôle de la conformité de leurs actes à la <strong>charte constitutionnelle de base</strong> qu'est le traité. »<span class="source">— CJCE, Les Verts, 23 avril 1986</span></div>
+<div class="formula">Le contrôle de validité de tout acte au regard des droits fondamentaux est « l'expression d'une <strong>garantie constitutionnelle</strong> découlant du traité en tant que système juridique autonome ».<span class="source">— CJCE, Kadi, 3 septembre 2008</span></div>
+
+<h4>B. Le régime : supériorité et rigidité</h4>
+<p><strong>Supériorité</strong> : le droit primaire est supérieur au droit dérivé et aux sources externes. Contrôle par la CJUE (avis, recours en annulation).</p>
+<p><strong>Rigidité</strong> : procédure de révision lourde (art. 48 TUE). Révision ordinaire : Convention + CIG + ratification par tous les États. Révision simplifiée : unanimité du Conseil européen + ratification. → Rigidité absolue et relative confirmées.</p>
+
+<div class="key-point"><strong>À retenir :</strong> Le droit primaire = « bloc de primarité » (équivalent du bloc de constitutionnalité). Formellement conventionnel, matériellement et fonctionnellement constitutionnel (Les Verts, Kadi). Régime de supériorité et rigidité conforme à celui d'un droit constitutionnel.</div>`,
+[
+  {q:"Quels sont les 5 types de sources primaires ?",a:"1) Traités institutifs (Paris, Rome) ; 2) Traités d'adhésion ; 3) Grands traités de révision (Acte unique, Maastricht, Amsterdam, Nice, Lisbonne) ; 4) Protocoles et déclarations ; 5) Actes institutionnels (décision 1970, acte de Bruxelles 1976)."},
+  {q:"Quelles sont les sources primaires importantes depuis Lisbonne ?",a:"TUE, TFUE et Charte des droits fondamentaux (même valeur juridique, art. 6 §1 TUE). Le traité Euratom existe toujours mais en marge de l'Union."},
+  {q:"Qu'est-ce que la prééminence fonctionnelle du traité CEE ?",a:"Le traité CEE jouait le rôle de lex generalis face aux traités sectoriels (CECA, CEEA) : combler leurs lacunes, guide d'interprétation, alignement des procédures. Ex : Busseni (1990)."},
+  {q:"Qu'est-ce que la clause d'intégrité de l'article 47 TUE (Maastricht) ?",a:"Clause de non-contamination : aucune disposition du TUE (piliers intergouvernementaux) ne doit affecter les traités communautaires. Contrôle extensif par la Cour (Visa de transit aéroportuaire, 1998)."},
+  {q:"Quelle est la différence entre l'article 47 TUE (Maastricht) et l'article 40 TUE (Lisbonne) ?",a:"Art. 47 : clause d'intégrité, générale, à sens unique (protéger le communautaire). Art. 40 : clause de cohérence, partielle (PESC seulement), réciproque (protection mutuelle)."},
+  {q:"Qu'est-ce que l'arrêt Les Verts (1986) ?",a:"Premier arrêt qualifiant les traités de « charte constitutionnelle de base ». La CEE est une « communauté de droit » : ni les États ni les institutions n'échappent au contrôle de conformité de leurs actes aux traités."},
+  {q:"En quoi le droit primaire a-t-il un caractère constitutionnel ?",a:"Formellement conventionnel (traités internationaux), mais matériellement constitutionnel (organisation politique, droits fondamentaux) et fonctionnellement constitutionnel (garantie constitutionnelle : Kadi 2008, Les Verts 1986)."},
+],
+[
+  {q:"Les protocoles annexés aux traités ont :",options:["Une valeur inférieure aux traités","La même valeur juridique que les traités","Une valeur purement déclarative","Une valeur de droit dérivé"],correct:1,expl:"Les protocoles suivent la même procédure d'entrée en vigueur que les traités et ont donc la même valeur juridique. Les déclarations, en revanche, n'ont pas cette valeur."},
+  {q:"L'arrêt Les Verts (1986) qualifie le traité de :",options:["Accord international ordinaire","Charte constitutionnelle de base","Norme supraconstitutionnelle","Acte législatif de l'Union"],correct:1,expl:"L'arrêt Les Verts est le premier à qualifier le traité de « charte constitutionnelle de base » et la Communauté de « communauté de droit »."},
+  {q:"La clause d'intégrité (art. 47 TUE Maastricht) était :",options:["Réciproque et partielle","À sens unique et générale","Sans effectivité juridique","Limitée au 2e pilier"],correct:1,expl:"L'article 47 protégeait le pilier communautaire de la contamination intergouvernementale : clause générale, à sens unique, contrôlée extensivement par la Cour."},
+],
+`<h3>Plan de corrigé</h3>
+<h4>I. La composition du droit primaire : un « bloc de primarité »</h4>
+<p>A. La diversité des sources primaires (5 types)<br>B. La cohérence entre les sources (3 temps : prééminence fonctionnelle, clause d'intégrité, clause de cohérence)</p>
+<h4>II. Le statut juridique du droit primaire : un droit constitutionnel</h4>
+<p>A. La nature ambivalente (formellement conventionnelle, matériellement constitutionnelle — Les Verts, Kadi)<br>B. Le régime confirmatif (supériorité et rigidité)</p>`
+);
+
+// SUJET 4
+addSubject(4,"Les sources dérivées du droit de l'Union européenne",
+`<h3>I. Approche générale</h3>
+<p>Les sources dérivées = actes des institutions de l'Union, prévus (ou non) par l'article 288 TFUE : <strong>règlements, directives, décisions, recommandations, avis</strong>.</p>
+<p>Le droit dérivé a un caractère <strong>législatif</strong> qui s'est imposé progressivement (Köster, 1970 : « système législatif du traité »). Depuis Lisbonne : procédure législative ordinaire → les actes adoptés par cette procédure sont des <strong>actes législatifs</strong> (art. 289 §3 TFUE).</p>
+<p>Le droit dérivé dépasse l'échelon législatif : il couvre aussi l'échelon <strong>administratif</strong> (actes délégués, actes d'exécution, art. 290-291 TFUE). La qualification d'un acte dépend de ses <strong>caractéristiques</strong>, non de son nom.</p>
+
+<h3>II. Les sources classifiées</h3>
+<h4>A. Le règlement</h4>
+<p>Source la plus puissante. Trois caractéristiques (art. 288) :</p>
+<ul>
+<li><strong>Portée générale</strong> : abstrait, sans destinataire, fonction législative</li>
+<li><strong>Obligatoire dans tous ses éléments</strong> : résultat ET moyens (≠ directive)</li>
+<li><strong>Directement applicable dans tout État membre</strong> : pas de réception (monisme), effet direct de principe (<span class="arret-ref">Politi</span>, 1971)</li>
+</ul>
+
+<h4>B. La directive</h4>
+<p><strong>Législation à deux étages</strong> : objectifs fixés au niveau européen, moyens déterminés au niveau national. Obligation absolue de résultat + liberté relative quant à la forme et aux moyens.</p>
+<div class="formula">La directive n'est <strong>pas</strong> l'instrument de la coopération mais un instrument <strong>aussi contraignant</strong> que le règlement. La transposition est une <strong>mise en œuvre</strong>, pas une réception dualiste.<span class="source">— Cours M. Blanquet</span></div>
+
+<h4>C. La décision</h4>
+<p>Depuis Lisbonne : deux catégories — avec destinataires (portée individuelle) et sans destinataire (portée générale).</p>
+
+<h4>D. Recommandations et avis</h4>
+<p>Ne lient pas, mais pas dépourvus d'effets juridiques : le juge national est tenu de prendre en considération les recommandations (<span class="arret-ref">Grimaldi</span>, 1989).</p>
+
+<h3>III. Les sources non classifiées</h3>
+<p><strong>Actes non prévus</strong> (résolutions, conclusions) : la Cour refuse le formalisme (<span class="arret-ref">AETR</span>, 1971). Communications de la Commission : obligatoires pour elle-même (<span class="arret-ref">IJssel-Vliet</span>, 1996).</p>
+<p><strong>Accords interinstitutionnels</strong> (art. 295 TFUE) : peuvent revêtir un caractère contraignant.</p>
+<p><strong>Actes atypiques</strong> : même nom que les actes de l'art. 288 mais caractéristiques différentes (règlement intérieur, directive de négociation…).</p>
+
+<div class="key-point"><strong>À retenir :</strong> Le droit dérivé = ensemble des actes des institutions, couvrant les échelons législatif et administratif. 5 catégories classifiées + sources non classifiées. La qualification dépend des caractéristiques objectives, pas du nom.</div>`,
+[
+  {q:"Quelles sont les 5 catégories d'actes de l'article 288 TFUE ?",a:"Règlement, directive, décision, recommandation, avis."},
+  {q:"Quelles sont les 3 caractéristiques du règlement ?",a:"1) Portée générale (abstrait, sans destinataire) ; 2) Obligatoire dans tous ses éléments (résultat + moyens) ; 3) Directement applicable dans tout État membre (monisme, effet direct de principe : Politi, 1971)."},
+  {q:"En quoi la directive est-elle une « législation à deux étages » ?",a:"Les objectifs sont fixés au niveau européen (obligation absolue de résultat), les moyens et la forme sont déterminés au niveau national (liberté relative d'adaptation)."},
+  {q:"La transposition d'une directive est-elle une réception dualiste ?",a:"Non. La directive est une source de droit dans l'ordre interne dès son adoption. La transposition est une mise en œuvre, pas une réception. Preuve : la non-transposition peut entraîner la condamnation de l'État (Francovich, 1991)."},
+  {q:"Qu'est-ce que l'arrêt AETR (1971) sur les actes non prévus ?",a:"La Cour refuse de raisonner sur la dénomination de l'acte. Elle contrôle au cas par cas : si l'acte correspond à l'exercice d'une compétence communautaire et si ses auteurs ont l'intention de se lier, il est obligatoire et contrôlable."},
+  {q:"Qu'est-ce qu'un acte atypique ?",a:"Un acte qui porte le même nom qu'un acte de l'art. 288 mais n'en a pas les caractéristiques. Ex : règlement intérieur, directive de négociation, avis interne à une procédure."},
+],
+[
+  {q:"Le règlement européen est :",options:["Obligatoire quant au résultat seulement","Obligatoire dans tous ses éléments","Non contraignant","Obligatoire pour ses destinataires uniquement"],correct:1,expl:"Art. 288 TFUE : le règlement est obligatoire dans tous ses éléments (résultat + moyens), à la différence de la directive qui n'oblige que quant au résultat."},
+  {q:"L'arrêt Grimaldi (1989) concerne :",options:["L'effet direct des directives","La portée des recommandations","Le renvoi préjudiciel","La primauté du droit de l'UE"],correct:1,expl:"Grimaldi : les recommandations ne lient pas mais le juge national est tenu de les prendre en considération pour interpréter le droit national. Pouvoir d'incitation et de persuasion."},
+],
+`<h3>Plan de corrigé</h3>
+<h4>I. L'approche générale : un droit dérivé à dimension législative et administrative</h4>
+<p>A. L'émergence du caractère législatif (Köster, Lisbonne)<br>B. Le droit dérivé dépasse l'échelon législatif (actes délégués, actes d'exécution)</p>
+<h4>II. La typologie des actes</h4>
+<p>A. Les sources classifiées (règlement, directive, décision, recommandations/avis)<br>B. Les sources non classifiées (actes non prévus — AETR ; accords interinstitutionnels — art. 295 TFUE ; actes atypiques)</p>`
+);
+
+// SUJET 5
+addSubject(5,"La directive",
+`<h3>I. Les caractéristiques de la directive</h3>
+<h4>A. L'obligation absolue de résultat</h4>
+<p>La directive fixe un résultat à atteindre et un <strong>délai</strong> contraignant. Manquement possible même <strong>avant l'expiration du délai</strong> (<span class="arret-ref">Inter-Environnement Wallonie</span>, 18 déc. 1997 : obligation de ne pas compromettre sérieusement le résultat).</p>
+<p>Déclinaisons : interprétation conforme (<span class="arret-ref">Von Colson</span>, 1984), contrôle de la marge d'appréciation, responsabilité de l'État (<span class="arret-ref">Francovich</span>, 1991).</p>
+
+<h4>B. La liberté relative quant à la forme et aux moyens</h4>
+<p>Compétence d'adaptation (pas liberté) : contrôlée par la Cour. Les moyens doivent être <strong>les plus appropriés</strong> pour assurer l'effet utile (<span class="arret-ref">Royer</span>, 1976). Pas de simples pratiques administratives.</p>
+
+<h3>II. Les deux malentendus</h3>
+<p><strong>1er :</strong> La directive n'est PAS l'instrument de la coopération (≠ règlement = intégration). Elle est <strong>aussi contraignante</strong>.</p>
+<p><strong>2e :</strong> La transposition n'est PAS une réception dualiste. La directive est source de droit interne dès son adoption.</p>
+
+<h3>III. L'effet direct des directives</h3>
+<p>Admis (<span class="arret-ref">Van Duyn</span>, 1974 : effet utile ; <span class="arret-ref">Ratti</span>, 1979 : nemo auditur), mais <strong>limité au vertical</strong> (<span class="arret-ref">Marshall</span>, 1986). Pas d'effet direct inversé (<span class="arret-ref">Kolpinghuis</span>, 1987). Effet collatéral admis (<span class="arret-ref">Wells</span>, 2004).</p>
+<p>Conseil d'État : rejet (<span class="arret-ref">Cohn-Bendit</span>, 1978), puis revirement (<span class="arret-ref">Perreux</span>, 2009).</p>
+
+<div class="key-point"><strong>À retenir :</strong> La directive est un instrument de législation à deux étages, aussi contraignant que le règlement. Obligation absolue de résultat, liberté relative de moyens. Effet direct vertical admis (Van Duyn, Ratti), refusé à l'horizontal (Marshall). Le CE a finalement accepté l'effet direct (Perreux, 2009, après 31 ans de Cohn-Bendit).</div>`,
+[
+  {q:"Quelle est l'obligation principale de la directive ?",a:"Obligation absolue de résultat dans un délai contraignant. Les États doivent atteindre le résultat fixé par la directive, en choisissant les moyens les plus appropriés."},
+  {q:"L'arrêt Inter-Environnement Wallonie (1997) dit quoi ?",a:"Même pendant le délai de transposition, les États doivent s'abstenir de prendre des mesures de nature à compromettre sérieusement la réalisation du résultat prescrit par la directive."},
+  {q:"Quel est le fondement de l'effet direct des directives dans Ratti (1979) ?",a:"Nemo auditur propriam turpitudinem allegans : l'État ne peut pas opposer aux particuliers sa propre faute (non-transposition). Conditions : disposition précise et inconditionnelle + délai dépassé + résultat non atteint."},
+  {q:"Pourquoi l'effet direct des directives est-il limité au vertical ?",a:"Parce que la reconnaissance repose sur l'obligation de l'État (défaillance). Un particulier ne peut invoquer une directive contre un autre particulier (Marshall, 1986). Pas d'effet direct inversé non plus (Kolpinghuis)."},
+  {q:"Qu'est-ce que l'arrêt Perreux (2009) ?",a:"Revirement du Conseil d'État après 31 ans de Cohn-Bendit : il admet l'effet direct des directives, y compris contre un acte administratif non réglementaire. Fondement : art. 288 TFUE + art. 88-1 Constitution."},
+],
+[
+  {q:"L'arrêt Cohn-Bendit (1978) du Conseil d'État :",options:["Admet l'effet direct des directives","Refuse tout effet direct des directives contre un acte individuel","Est toujours la jurisprudence en vigueur","A été rendu par la Cour de cassation"],correct:1,expl:"Cohn-Bendit refuse l'invocabilité des directives à l'encontre d'un acte administratif individuel. Ce n'est plus la jurisprudence en vigueur depuis Perreux (2009)."},
+  {q:"L'effet direct des directives est :",options:["Complet (vertical + horizontal)","Vertical uniquement","Horizontal uniquement","Inexistant"],correct:1,expl:"Marshall (1986) : l'effet direct des directives est limité au vertical (procès contre l'État). Pas d'effet direct horizontal (entre particuliers)."},
+],
+`<h3>Plan de corrigé</h3>
+<h4>I. Un instrument de législation à deux étages</h4>
+<p>A. L'obligation absolue de résultat (délai, Inter-Environnement Wallonie, Francovich)<br>B. La liberté relative quant à la forme et aux moyens (adaptation, Royer)<br>C. Les malentendus à dissiper</p>
+<h4>II. L'effet direct des directives : une construction progressive</h4>
+<p>A. L'admission (Van Duyn 1974, Ratti 1979)<br>B. Les limites (vertical seulement, Marshall 1986)<br>C. La réception en France (Cohn-Bendit 1978 → Perreux 2009)</p>`
+);
+
+// SUJETS 6-20 — données condensées pour chaque sujet
+// Je continue avec tous les sujets restants
+
+addSubject(6,"Les principes généraux du droit de l'Union",
+`<h3>I. L'origine des PGD</h3>
+<p>Triple inspiration : <strong>internationale</strong> (rare, prudente — Van Duyn 1974, territorialité), <strong>nationale</strong> (patrimoine juridique commun sous-jacent — confiance légitime, issue de l'Allemagne seule), <strong>communautaire</strong> (logique de l'Union de droit — droits acquis, non-rétroactivité ; logique de l'intégration — coopération loyale, subsidiarité).</p>
+<p>Généralisation à partir de dispositions écrites : la coopération loyale (art. 5 CEE → art. 4 §3 TUE : devoirs réciproques). L'arrêt <span class="arret-ref">Audiolux</span> (2009) définit les critères pour qu'une disposition de droit dérivé révèle un PGD.</p>
+
+<h3>II. La reconnaissance des PGD</h3>
+<p>Le principe doit être dans le <strong>champ des objectifs des traités</strong> (refus : bien-être animal, Jippes 2001) et avoir un <strong>contenu suffisamment précis</strong> (refus : préférence communautaire, cohésion). Exemple de reconnaissance progressive : <em>ad impossibilia nemo tenetur</em> (Maria Montessori, 2018).</p>
+
+<h3>III. La portée des PGD</h3>
+<div class="formula">« Les principes généraux du droit communautaire se situent au <strong>rang constitutionnel</strong>. »<span class="source">— CJCE, Audiolux, 15 oct. 2009</span></div>
+<p>Valeur de <strong>droit primaire</strong>. S'imposent aux institutions (droit dérivé) et aux autorités nationales dans le champ du droit de l'UE. Le CE français reconnaît leur supériorité sur la loi (<span class="arret-ref">SNIP</span>, 2001).</p>
+
+<h3>IV. PGD et droits fondamentaux</h3>
+<p>Traités économiques sans droits fondamentaux → après Costa (1964) et la primauté, la Cour construit une protection par les PGD (<span class="arret-ref">Nold</span>, 1974 : inspiration nationale + CEDH). Charte des droits fondamentaux (2000, valeur de droit primaire depuis Lisbonne). Les PGD subsistent (art. 6 §3 TUE, continuité jurisprudentielle, valorisation).</p>
+
+<div class="key-point"><strong>À retenir :</strong> Les PGD sont des sources non écrites, découvertes par la Cour, de valeur constitutionnelle (= droit primaire). Triple inspiration. S'imposent aux institutions et aux États. Protection des droits fondamentaux construite par les PGD (Nold), consolidée par la Charte.</div>`,
+[
+  {q:"Quelles sont les trois sources d'inspiration des PGD ?",a:"1) Internationale (rare, prudemment : Van Duyn, territorialité) ; 2) Nationale (patrimoine juridique commun sous-jacent : confiance légitime, issue d'Allemagne seule) ; 3) Communautaire (logique de l'Union de droit + intégration)."},
+  {q:"Quelle est la valeur juridique des PGD ?",a:"Rang constitutionnel = même valeur que le droit primaire (Audiolux, 2009). S'imposent au droit dérivé et aux États dans le champ du droit de l'UE. Le CE reconnaît leur supériorité sur la loi (SNIP, 2001)."},
+  {q:"Qu'est-ce que l'arrêt Nold (1974) ?",a:"Arrêt dans lequel la Cour construit la protection des droits fondamentaux par les PGD, en s'inspirant des traditions constitutionnelles communes et de la CEDH."},
+  {q:"Les PGD ont-ils encore une utilité depuis la Charte ?",a:"Oui : art. 6 §3 TUE les mentionne ; continuité jurisprudentielle ; « principe général » est plus valorisant que « principe » de la Charte (qui doit être concrétisé par des dispositions ultérieures)."},
+],
+[
+  {q:"Les PGD ont la valeur de :",options:["Droit dérivé","Droit primaire (rang constitutionnel)","Sources externes","Soft law"],correct:1,expl:"Audiolux (2009) : les PGD se situent au rang constitutionnel, même valeur que les traités. Confirmé par UPA (2002)."},
+  {q:"La confiance légitime, au moment de sa reconnaissance comme PGD de l'Union, existait :",options:["Dans tous les États membres","Dans la majorité des États","Uniquement en Allemagne","En France et en Allemagne"],correct:2,expl:"La Cour a reconnu la confiance légitime comme PGD alors qu'elle n'existait qu'en Allemagne. Le raisonnement : rien ne s'oppose à ce qu'elle soit un jour identifiée dans les autres États."},
+],
+`<h3>Plan de corrigé</h3>
+<h4>I. L'identification des PGD : origine et reconnaissance</h4>
+<p>A. Triple inspiration (internationale, nationale, communautaire)<br>B. Critères de reconnaissance (champ des objectifs, contenu précis)<br>C. Exemple de reconnaissance progressive (ad impossibilia)</p>
+<h4>II. La portée et la fonction des PGD</h4>
+<p>A. Valeur constitutionnelle (Audiolux, UPA)<br>B. Destinataires (institutions, États dans le champ du droit de l'UE)<br>C. Fonction de protection des droits fondamentaux (Nold → Charte)</p>`
+);
+
+// SUJETS 7 à 20 — ajoutés de manière condensée
+addSubject(7,"La protection des droits fondamentaux dans l'ordre juridique de l'Union européenne",
+`<h3>I. Le développement de la protection</h3>
+<p>Traités économiques sans catalogue de droits. Après <span class="arret-ref">Costa</span> (1964) : primauté → risque d'affaiblissement. « Bricolage génial » de la Cour : PGD inspirés des traditions constitutionnelles + CEDH (<span class="arret-ref">Nold</span>, 1974). Inscription dans les traités (art. F Maastricht → art. 6 §3 TUE).</p>
+<p>Adhésion à la CEDH : refusée (avis 2/94, 1996 ; avis 2/13, 2014). Charte des droits fondamentaux : proclamée 2000, valeur juridique depuis Lisbonne (art. 6 §1 TUE).</p>
+<h3>II. Le renouvellement</h3>
+<p>Limites du dispositif jurisprudentiel (Baustahlgewebe 1998, Connolly 2001 : la Cour applique de fait la CEDH). Charte : catalogue moderne et complet (droits civils/politiques + économiques/sociaux). Avis 2/13 : refus d'adhésion au nom de la spécificité de l'ordre juridique. Troisième tentative en cours (avis 1/25 attendu en 2027).</p>
+<div class="key-point"><strong>À retenir :</strong> Protection construite en 3 étapes : PGD (Nold), inscription dans les traités (Maastricht), Charte (Lisbonne). L'adhésion à la CEDH reste bloquée (avis 2/13). Les PGD subsistent à côté de la Charte.</div>`,
+[{q:"Pourquoi la Cour a-t-elle construit la protection des droits fondamentaux par les PGD ?",a:"Les traités économiques ne contenaient pas de catalogue de droits fondamentaux. Après l'arrêt Costa (1964), la primauté du droit communautaire risquait d'affaiblir la protection constitutionnelle nationale (notamment en Allemagne)."},
+{q:"Pourquoi l'avis 2/13 refuse-t-il l'adhésion à la CEDH ?",a:"La Cour estime que l'adhésion porterait atteinte à la spécificité de l'ordre juridique de l'Union (risque que la Cour EDH tranche des questions de droit de l'UE, contrôle externe des actes de PESC)."},
+{q:"Quelle est la particularité de la Charte des droits fondamentaux ?",a:"Texte le plus moderne et complet : droits civils/politiques ET économiques/sociaux. Proclamée en 2000, valeur de droit primaire depuis Lisbonne (art. 6 §1 TUE)."},
+],[{q:"L'adhésion de l'UE à la CEDH a été refusée par :",options:["Le Conseil européen","La Cour de justice (avis 2/13)","Le Parlement européen","La Cour EDH"],correct:1,expl:"La CJUE a rendu un avis négatif (avis 2/13, 18 déc. 2014) au nom de la spécificité du droit de l'Union. L'avis 1/25 est attendu en 2027."}],
+`<h4>I. La construction progressive de la protection</h4><p>A. Le « bricolage génial » de la Cour (PGD, Nold)<br>B. L'inscription dans les traités (Maastricht, art. 6 §3 TUE)</p><h4>II. Le renouvellement</h4><p>A. La Charte des droits fondamentaux (Nice 2000, Lisbonne 2009)<br>B. L'adhésion à la CEDH : échecs et perspectives (avis 2/94, 2/13, 1/25)</p>`);
+
+addSubject(8,"Autonomie et intégration immédiate du droit de l'Union européenne",
+`<h3>I. L'autonomie</h3>
+<p>Indispensable à l'existence d'un ordre juridique. Ne signifie pas séparation mais <strong>intégrité</strong> : le droit de l'UE s'intègre dans les ordres nationaux <em>en tant que droit de l'Union</em>. Trois dimensions :</p>
+<ul><li><strong>Validité</strong> : ne dépend que du droit de l'UE (<span class="arret-ref">Internationale Handelsgesellschaft</span>, 1970)</li>
+<li><strong>Effectivité</strong> : non affectée par les actes nationaux</li>
+<li><strong>Interprétation</strong> : notions autonomes, interprétées uniformément par la CJUE (notion de travailleur, de juridiction)</li></ul>
+
+<h3>II. L'intégration immédiate</h3>
+<p>L'intégration européenne postule le <strong>monisme</strong>. Droit primaire : <strong>neutralisation</strong> du dualisme (<span class="arret-ref">Commission c. Italie</span>, 1972 ; <span class="arret-ref">Simmenthal</span>, 1978). Droit dérivé : <strong>prohibition</strong> du dualisme (pas de réception — <span class="arret-ref">Commission c. Italie</span>, 1973). La transposition = mise en œuvre, pas réception.</p>
+<div class="formula">Le droit communautaire « fait partie intégrante de l'ordre juridique applicable sur le territoire de chacun des États membres ».<span class="source">— CJCE, Simmenthal, 9 mars 1978</span></div>
+<div class="key-point"><strong>À retenir :</strong> Autonomie = intégrité (pas séparation). Le droit de l'UE s'intègre sans se diluer. Intégration immédiate = sans intermédiaire et instantanée. Monisme imposé par la Cour.</div>`,
+[{q:"Que signifie l'autonomie du droit de l'UE ?",a:"Pas une séparation mais une intégrité : le droit de l'UE s'intègre dans les ordres nationaux en tant que droit de l'Union, sans se diluer. Ses caractéristiques sont déterminées par le droit de l'UE, pas par les droits nationaux."},
+{q:"Quelles sont les 3 dimensions de l'autonomie ?",a:"1) Validité (ne dépend que du droit de l'UE : Internationale Handelsgesellschaft) ; 2) Effectivité (non affectée par les actes nationaux) ; 3) Interprétation (notions autonomes interprétées uniformément par la CJUE)."},
+{q:"Quelle est la différence entre neutralisation et prohibition du dualisme ?",a:"Droit primaire : neutralisation (le mal est fait, les traités ont été ratifiés selon la procédure dualiste, mais la Cour interdit de transformer le conflit en problème interne). Droit dérivé : prohibition (aucune mesure de réception tolérée)."},
+],[{q:"L'intégration immédiate signifie :",options:["Que le droit de l'UE nécessite une loi de réception","Qu'il fait partie intégrante de l'ordre juridique national sans intermédiaire","Qu'il ne s'applique qu'après publication au JO national","Qu'il dépend de la Constitution nationale"],correct:1,expl:"Simmenthal (1978) : le droit de l'UE fait partie intégrante de l'ordre juridique de chaque État, sans réception ni transformation."}],
+`<h4>I. L'autonomie : condition de l'intégration</h4><p>A. Signification (intégrité, pas séparation)<br>B. Trois dimensions (validité, effectivité, interprétation)</p><h4>II. L'intégration immédiate : le monisme imposé</h4><p>A. Droit primaire (neutralisation du dualisme)<br>B. Droit dérivé (prohibition du dualisme)</p>`);
+
+addSubject(9,"Le fondement de la primauté du droit de l'Union",
+`<h3>I. Les voies écartées</h3>
+<p><strong>Voie internationale</strong> : primauté « platonique » (ne joue que dans l'ordre international). <strong>Voie nationale</strong> : primauté partielle (pas sur la Constitution), aléatoire (réciprocité) et variable.</p>
+<h3>II. Le fondement communautaire (Costa, 1964)</h3>
+<div class="formula">« Issu d'une source autonome, le droit né du traité ne pourrait donc, <strong>en raison de sa nature spécifique originale</strong>, se voir judiciairement opposer un texte interne quel qu'il soit, sans perdre son caractère communautaire et sans que soit mise en cause la base juridique de la Communauté elle-même. »<span class="source">— CJCE, Costa c. E.N.E.L., 15 juillet 1964</span></div>
+<p>Arguments logiques : intégration immédiate, limitation de compétences, uniformité de la force exécutive. Arguments textuels discutables (art. 5 et 7 CE).</p>
+<h3>III. La situation actuelle</h3>
+<p>Nouveautés : primauté et <strong>prééminence</strong> (Popławski II, 2019) ; ratification sans réserve de 5 révisions (Euro Box Promotion, 2021) ; art. 4 §2 TUE (égalité des États), art. 19 TUE (protection juridictionnelle effective), compétence exclusive de la Cour.</p>
+<div class="key-point"><strong>À retenir :</strong> Le fondement = la « nature spécifique originale » du droit communautaire (projet d'intégration exigeant un droit commun uniforme). Pas de fondement international (platonique) ni national (partiel, variable). Fondement renforcé depuis 2019-2021.</div>`,
+[{q:"Pourquoi la voie internationale a-t-elle été écartée pour fonder la primauté ?",a:"Car elle n'aurait produit qu'une primauté « platonique » : jouant dans l'ordre international seulement, sans permettre au juge national d'écarter la loi contraire."},
+{q:"Quelle est la formule cardinale de l'arrêt Costa ?",a:"« En raison de sa nature spécifique originale, le droit né du traité ne pourrait se voir judiciairement opposer un texte interne quel qu'il soit, sans perdre son caractère communautaire. »"},
+{q:"Qu'est-ce que la prééminence dans Popławski II (2019) ?",a:"Selon M. Blanquet : la prééminence = règle de conflit d'ordre juridique à ordre juridique ; la primauté = principe imposant aux juges nationaux de donner plein effet aux normes de l'UE (conflit de normes). La primauté est au service de la prééminence."},
+],[{q:"Le fondement de la primauté dans l'arrêt Costa est :",options:["L'article 55 de la Constitution française","La nature spécifique originale du droit communautaire","La Convention de Vienne sur le droit des traités","L'article 5 du traité CEE"],correct:1,expl:"La Cour fonde la primauté sur la nature spécifique originale du droit communautaire : le projet d'intégration exige un droit commun s'appliquant partout de la même façon."}],
+`<h4>I. Les voies écartées</h4><p>A. Voie internationale (primauté platonique)<br>B. Voie nationale (partielle, aléatoire, variable)</p><h4>II. Le fondement communautaire</h4><p>A. La démonstration de Costa (arguments logiques et textuels)<br>B. La conclusion : « nature spécifique originale »<br>C. La situation actuelle (prééminence, nouveaux arguments)</p>`);
+
+addSubject(10,"La portée de la primauté du droit de l'Union",
+`<h3>I. Portée générale</h3>
+<p>Côté UE : <strong>tout</strong> le droit de l'Union (primaire, dérivé, PGD, sources externes). Côté national : « texte interne <strong>quel qu'il soit</strong> » = actes administratifs, lois, <strong>Constitution</strong> (<span class="arret-ref">Internationale Handelsgesellschaft</span>, 1970). La primauté n'est pas une supériorité hiérarchique mais un rapport de <strong>droit commun à droit particulier</strong>. Le juge <strong>écarte</strong>, il n'annule pas.</p>
+<h3>II. Portée interne</h3>
+<p>La primauté joue devant les <strong>juges nationaux</strong> (juges de droit commun de l'ordre juridique de l'UE). Obligations : écarter le droit national contraire <strong>de sa propre autorité</strong> (<span class="arret-ref">Simmenthal</span>, 1978), sans attendre l'abrogation, même si le droit national le lui interdit (<span class="arret-ref">Factortame</span>, 1990). Fondement : coopération loyale (art. 4 §3 TUE).</p>
+<h3>III. Portée raisonnée</h3>
+<p>Trois tempéraments : <strong>sécurité juridique</strong> (provisoire) ; <strong>identité nationale</strong> sous contrôle de proportionnalité (<span class="arret-ref">Sayn-Wittgenstein</span>, 2010) ; <strong>situations exceptionnelles en matière de droits fondamentaux</strong> (<span class="arret-ref">Melloni</span>, 2013 ; <span class="arret-ref">Aranyosi</span>, 2016).</p>
+<div class="key-point"><strong>À retenir :</strong> Portée générale (tout le droit de l'UE, tout texte national y compris constitutionnel), interne (juges nationaux, Simmenthal, Factortame) et raisonnée (sécurité juridique, identité nationale, droits fondamentaux exceptionnels).</div>`,
+[{q:"La primauté est-elle une supériorité hiérarchique ?",a:"Non. C'est un rapport de droit commun à droit particulier. Le juge écarte le droit national contraire, il ne l'annule pas et ne l'invalide pas."},
+{q:"Que dit l'arrêt Factortame (1990) ?",a:"Le juge national doit écarter le droit national contraire même si son propre droit national le lui interdit. En l'espèce, la Common Law britannique interdisait aux juges de suspendre une loi du Parlement."},
+{q:"Quels sont les 3 tempéraments à la primauté ?",a:"1) Sécurité juridique (titre provisoire) ; 2) Identité nationale sous contrôle de proportionnalité (Sayn-Wittgenstein) ; 3) Situations exceptionnelles en matière de droits fondamentaux (Melloni, Aranyosi)."},
+],[{q:"L'arrêt Simmenthal (1978) impose au juge national de :",options:["Demander l'abrogation de la loi au législateur","Écarter le droit national contraire de sa propre autorité","Saisir la Cour constitutionnelle","Attendre un arrêt en manquement"],correct:1,expl:"Simmenthal : le juge doit écarter le droit national contraire de sa propre autorité, sans attendre l'abrogation."}],
+`<h4>I. Une portée générale</h4><p>A. Tout le droit de l'UE, tout texte national (y compris constitutionnel)<br>B. Droit commun vs droit particulier (pas de supériorité hiérarchique)</p><h4>II. Une portée interne</h4><p>A. Les juges nationaux, juges de droit commun (Simmenthal, Factortame)<br>B. Coopération loyale (art. 4 §3 TUE)</p><h4>III. Une portée raisonnée</h4><p>A. Sécurité juridique, identité nationale, droits fondamentaux</p>`);
+
+// Sujets 11-20 ajoutés de manière condensée
+addSubject(11,"La primauté du droit de l'Union européenne sur la loi française",
+`<h3>I. Le problème : la sacralisation de la loi en France</h3><p>Souveraineté de la loi (Rousseau, Montesquieu). Contrôle de constitutionnalité seulement depuis 1971. Pas de problème pour les lois antérieures (doctrine Matter + art. 55). Le problème = les <strong>lois postérieures</strong>.</p>
+<h3>II. Le parcours français</h3>
+<p><strong>CE 1968 Semoules</strong> : « ce n'est pas moi » (contrôle de constitutionnalité = CC). <strong>CC 1975 IVG</strong> : « ce n'est pas moi non plus » (contrôle de conventionnalité ≠ constitutionnalité). <strong>Cass. 1975 Jacques Vabre</strong> : « moi si » (art. 55 + spécificité). <strong>CE 1989 Nicolo</strong> : revirement (abandon de Semoules, art. 55).</p>
+<p>Évolution : art. 88-1 + effectivité (<span class="arret-ref">SCEA du Chéneau</span>, 2011). <span class="arret-ref">French Data Network</span> (2021) : « toute disposition contraire résultant d'un engagement international, d'une loi ou d'un acte administratif » — mais pas la Constitution.</p>
+<div class="key-point"><strong>À retenir :</strong> Primauté sur les lois acquise grâce à Jacques Vabre (1975) puis Nicolo (1989). Fondement : art. 55 (bricolage) puis art. 88-1 + effectivité. Le vrai problème restant = la Constitution.</div>`,
+[{q:"Qu'est-ce que l'arrêt Semoules (CE, 1968) ?",a:"Le CE se déclare incompétent pour contrôler la conformité d'une loi à un traité, car cela reviendrait à faire un contrôle de constitutionnalité de la loi (qu'il s'interdit depuis Arrighi, 1936)."},
+{q:"Que décide la décision IVG (CC, 1975) ?",a:"Le CC se déclare incompétent pour le contrôle de conventionnalité : la supériorité du traité sur la loi (art. 55) est relative et contingente (réciprocité), ≠ contrôle de constitutionnalité (général et absolu)."},
+{q:"Qu'est-ce que l'arrêt Jacques Vabre (Cass., 1975) ?",a:"Premier juge suprême français à faire primer le droit communautaire sur une loi postérieure. Fondement hybride : art. 55 + spécificité du droit communautaire."},
+{q:"Qu'est-ce que l'arrêt Nicolo (CE, 1989) ?",a:"Revirement du CE (abandonne Semoules) : contrôle la compatibilité d'une loi avec le traité de Rome. Fondement : art. 55. Le CE opère son revirement à l'occasion d'une solution négative (pas d'incompatibilité constatée)."},
+],[{q:"La primauté sur la loi française a d'abord été consacrée par :",options:["Le Conseil d'État en 1968","Le Conseil constitutionnel en 1975","La Cour de cassation en 1975","Le Conseil d'État en 1989"],correct:2,expl:"Cass., Jacques Vabre, 24 mai 1975 : premier juge suprême à faire primer le droit communautaire sur une loi postérieure. Le CE n'a suivi qu'en 1989 (Nicolo)."}],
+`<h4>I. Le blocage initial</h4><p>A. CE Semoules (1968) : incompétence<br>B. CC IVG (1975) : incompétence<br>C. Déni de justice potentiel</p><h4>II. La résolution progressive</h4><p>A. Cass. Jacques Vabre (1975)<br>B. CE Nicolo (1989)<br>C. Évolutions : art. 88-1, effectivité</p>`);
+
+addSubject(12,"Droit de l'Union européenne et Constitution française (jurisprudence du Conseil constitutionnel)",
+`<h3>I. L'indifférenciation (avant 2004)</h3><p>Contrôle a priori (art. 54) pour le droit primaire. Critères : limitation/transfert de souveraineté (1976), puis conditions essentielles d'exercice de la souveraineté nationale (Maastricht I, 1992). Droit dérivé : neutralisation.</p>
+<h3>II. 2004 : l'approche spécifique</h3>
+<div class="formula">La transposition d'une directive résulte d'une « <strong>exigence constitutionnelle</strong> » (art. 88-1) « à laquelle il ne pourrait être fait obstacle qu'en raison d'une <strong>disposition expresse contraire de la Constitution</strong> ».<span class="source">— CC, 10 juin 2004, 2004-496 DC</span></div>
+<p>Juillet 2004 (Bioéthique) : critère de la <strong>protection équivalente</strong> dans l'ordre de l'Union → répartition des compétences entre juges.</p>
+<h3>III. 2006 : l'identité constitutionnelle</h3>
+<div class="formula">La transposition « ne saurait aller à l'encontre d'une règle ou d'un principe <strong>inhérent à l'identité constitutionnelle de la France</strong>, sauf à ce que le constituant y ait consenti ».<span class="source">— CC, 27 juillet 2006, 2006-540 DC</span></div>
+<p>2021 (Air France) : seul principe identifié = interdiction de déléguer la police administrative à des personnes privées.</p>
+<div class="key-point"><strong>À retenir :</strong> Le CC est passé de l'indifférenciation (art. 55) à la différenciation (art. 88-1), avec le critère de l'identité constitutionnelle (2006). Logique : répartition des compétences entre juges selon l'existence d'un équivalent dans l'ordre de l'UE.</div>`,
+[{q:"Qu'est-ce que l'exigence constitutionnelle de transposition (2004) ?",a:"L'art. 88-1 fait de la transposition une exigence constitutionnelle. Le CC ne contrôle pas la directive, sauf en cas de violation d'une disposition expresse/spécifique de la Constitution sans équivalent en droit de l'UE."},
+{q:"Qu'est-ce que l'identité constitutionnelle de la France (2006) ?",a:"Ce qui est « inhérent » à l'identité constitutionnelle = ce qui n'a pas d'équivalent dans l'ordre juridique de l'Union (critère distinctif). Seul principe identifié à ce jour : interdiction de déléguer la police administrative à des personnes privées (2021)."},
+],[{q:"La décision du 10 juin 2004 du CC se fonde sur :",options:["L'article 55 de la Constitution","L'article 88-1 de la Constitution","L'article 54 de la Constitution","L'article 61 de la Constitution"],correct:1,expl:"C'est la première fois que le CC se fonde sur l'art. 88-1 (exigence constitutionnelle de transposition), marquant le passage de l'indifférenciation à la différenciation entre droit de l'UE et droit international."}],
+`<h4>I. L'indifférenciation (avant 2004)</h4><p>A. Contrôle du droit primaire (art. 54)<br>B. Neutralisation du droit dérivé</p><h4>II. La différenciation</h4><p>A. 2004 : exigence constitutionnelle (art. 88-1)<br>B. Protection équivalente (juill. 2004)<br>C. Identité constitutionnelle (2006, 2021)</p>`);
+
+addSubject(13,"Droit de l'Union européenne et Constitution française (jurisprudence du Conseil d'État)",
+`<h3>I. L'ambiguïté : Sarran (1998)</h3><p>L'art. 55 ne donne pas de supériorité aux traités sur la Constitution, mais ne dit pas que la Constitution l'emporte.</p>
+<h3>II. La provocation : SNIP (2001)</h3><p>Obiter dictum : la primauté « ne saurait conduire à remettre en cause la suprématie de la Constitution ». Provocation gratuite.</p>
+<h3>III. L'alignement : Arcelor (2007)</h3>
+<div class="formula">Le juge recherche si le principe constitutionnel invoqué a un <strong>équivalent dans l'ordre juridique communautaire</strong>. Si oui : renvoi à la CJUE. Si non : compétence du juge national.<span class="source">— CE, Ass., 8 février 2007, Arcelor</span></div>
+<p>= « Translation du bloc de constitutionnalité vers l'ordre juridique communautaire » (Mattias Guyomar).</p>
+<h3>IV. French Data Network (2021)</h3><p>Refuse le contrôle ultra vires. « Joker constitutionnel » si un arrêt de la CJUE prive de garantie effective une exigence constitutionnelle sans protection équivalente.</p>
+<div class="key-point"><strong>À retenir :</strong> Le CE est passé de l'ambiguïté (Sarran) à la provocation (SNIP), puis à l'alignement (Arcelor : équivalent → renvoi CJUE ; pas d'équivalent → compétence nationale). French Data Network (2021) : refuse l'ultra vires, mais « joker constitutionnel ».</div>`,
+[{q:"Qu'est-ce que l'arrêt Arcelor (CE, 2007) ?",a:"Le CE reprend la logique du CC : il recherche si le principe constitutionnel invoqué a un équivalent en droit de l'UE. Si oui → renvoi à la CJUE. Si non → compétence du juge national pour annuler le décret de transposition."},
+{q:"Qu'est-ce que le « joker constitutionnel » de French Data Network (2021) ?",a:"Si un arrêt de la CJUE prive de garantie effective une exigence constitutionnelle sans protection équivalente en droit de l'UE, le juge administratif peut écarter cet arrêt. Selon M. Blanquet, rien ne change fondamentalement : même logique qu'Arcelor."},
+],[{q:"L'arrêt Arcelor applique :",options:["Un contrôle de constitutionnalité classique","La méthode de l'équivalent dans l'ordre de l'UE","Le contrôle ultra vires","Le renvoi systématique au CC"],correct:1,expl:"Arcelor : si le principe constitutionnel a un équivalent en droit de l'UE, renvoi à la CJUE ; sinon, le juge national statue."}],
+`<h4>I. Les positions successives du CE</h4><p>A. Sarran (1998) : ambiguïté<br>B. SNIP (2001) : provocation<br>C. Arcelor (2007) : alignement (équivalent → CJUE)<br>D. French Data Network (2021) : « joker constitutionnel »</p>`);
+
+addSubject(14,"Le Conseil d'État français et le droit de l'Union européenne",
+`<h3>Synthèse transversale</h3>
+<p><strong>Primauté sur les actes administratifs :</strong> acquise dès 1952 (Kirkwood). Directives en 3 étapes (1984 × 2, Alitalia 1989).</p>
+<p><strong>Primauté sur les lois :</strong> Semoules (1968) → Nicolo (1989). Extensions : Boisdet (règlements), Rothmans (directives), SNIP (PGD).</p>
+<p><strong>Primauté et Constitution :</strong> Sarran (1998), SNIP (2001), Arcelor (2007), French Data Network (2021).</p>
+<p><strong>Effet direct des directives :</strong> Cohn-Bendit (1978) → Perreux (2009).</p>
+<p><strong>Renvoi préjudiciel :</strong> théorie de l'acte clair (Shell-Berre, 1964). Condamnation pour non-renvoi : Commission c. France (2018).</p>
+<div class="key-point"><strong>À retenir :</strong> Le CE a connu une évolution progressive : de la résistance (Semoules, Cohn-Bendit, SNIP) à l'acceptation (Nicolo, Perreux, Arcelor). Juge de droit commun du droit de l'UE (Vent de colère !, 2016).</div>`,
+[{q:"Quelle est la chronologie des grandes décisions du CE en droit de l'UE ?",a:"Kirkwood (1952) → Semoules (1968) → Cohn-Bendit (1978) → Alitalia (1989) → Nicolo (1989) → Boisdet (1990) → Rothmans (1992) → Sarran (1998) → SNIP (2001) → Arcelor (2007) → Perreux (2009) → French Data Network (2021)."},
+],[{q:"Le CE se qualifie de « juge de droit commun du droit de l'UE » dans :",options:["Nicolo (1989)","Perreux (2009)","Vent de colère ! (2016)","French Data Network (2021)"],correct:2,expl:"CE, 15 avril 2016, Vent de colère ! : le CE assume son rôle de « juge de droit commun de l'application du droit communautaire »."}],
+`<h4>I. La primauté : une acceptation progressive</h4><p>A. Actes administratifs (Kirkwood, Alitalia)<br>B. Lois (Semoules → Nicolo)<br>C. Constitution (Sarran → Arcelor → FDN)</p><h4>II. L'effet direct et le renvoi préjudiciel</h4><p>A. Cohn-Bendit → Perreux<br>B. Acte clair et renvoi préjudiciel</p>`);
+
+addSubject(15,"L'effet direct du droit de l'UE",
+`<h3>I. La substance</h3>
+<div class="formula">L'effet direct = le fait pour une disposition de « engendrer des droits individuels que les juridictions nationales doivent sauvegarder ».<span class="source">— CJCE, Van Gend en Loos, 5 février 1963</span></div>
+<p>Critère : disposition <strong>inconditionnelle et suffisamment précise</strong> (<span class="arret-ref">Becker</span>, 1982). Vertical (procès contre l'État) / horizontal (entre particuliers) / complet.</p>
+<h3>II. La reconnaissance selon les actes</h3>
+<p><strong>Droit primaire :</strong> parfois pas d'effet direct (coopération loyale), souvent vertical (interdictions), parfois complet (concurrence, Walrave 1974).</p>
+<p><strong>Règlements :</strong> présomption d'effet direct (Politi, 1971), complet.</p>
+<p><strong>Directives :</strong> admis (Van Duyn 1974, Ratti 1979), vertical seulement (Marshall 1986). CE : Cohn-Bendit → Perreux.</p>
+<p><strong>Sources externes :</strong> critère renforcé (objet et nature de l'accord). Pas d'effet direct des accords OMC.</p>
+<div class="key-point"><strong>À retenir :</strong> Effet direct = disposition inconditionnelle et suffisamment précise permettant au juge de trancher le litige. S'apprécie disposition par disposition. Règlements : présomption. Directives : vertical seulement. Sources externes : critère renforcé.</div>`,
+[{q:"Qu'est-ce que l'effet direct ?",a:"La capacité d'une disposition du droit de l'UE à engendrer des droits individuels que les juridictions nationales doivent sauvegarder. Le particulier peut invoquer cette disposition devant son juge national."},
+{q:"Quel est le critère de l'effet direct (Becker, 1982) ?",a:"La disposition doit être inconditionnelle et suffisamment précise. Le juge national doit pouvoir, en la lisant, trouver les éléments pour trancher le litige."},
+{q:"Pourquoi les accords OMC n'ont-ils pas d'effet direct ?",a:"Le système OMC ménage une place aux négociations ; les partenaires importants ne reconnaissent pas l'effet direct ; l'imposer au juge de l'UE priverait les organes de l'Union d'une marge de manœuvre (réciprocité)."},
+],[{q:"L'effet direct des directives est :",options:["Vertical et horizontal","Vertical seulement","Horizontal seulement","Inexistant"],correct:1,expl:"Marshall (1986) : l'effet direct des directives est limité au vertical (procès contre l'État). Pas d'effet direct horizontal."}],
+`<h4>I. La substance de l'effet direct</h4><p>A. Définition (Van Gend en Loos) et critère (Becker)<br>B. Typologie : vertical, horizontal, complet</p><h4>II. La reconnaissance selon les actes</h4><p>A. Droit primaire<br>B. Règlements (présomption)<br>C. Directives (vertical, Ratti)<br>D. Sources externes (OMC : refus)</p>`);
+
+addSubject(16,"L'effet direct des directives",
+`<h3>I. Un effet direct admis</h3><p>Raisonnement 1 : effet utile du caractère obligatoire (<span class="arret-ref">Van Duyn</span>, 1974). Raisonnement 2 : défaillance de l'État (<span class="arret-ref">Ratti</span>, 1979 — nemo auditur). Conditions : disposition précise et inconditionnelle + délai dépassé + résultat non atteint.</p>
+<h3>II. Un effet direct limité</h3><p>Vertical seulement (<span class="arret-ref">Marshall</span>, 1986). Pas d'effet direct inversé (<span class="arret-ref">Kolpinghuis</span>, 1987). Effet collatéral admis (<span class="arret-ref">Wells</span>, 2004). Problème non résolu : discrimination secteur public/privé.</p>
+<h3>III. Un effet direct contesté puis accepté en France</h3><p><span class="arret-ref">Cohn-Bendit</span> (CE, 1978) : refus de l'invocabilité contre un acte administratif individuel (conception formelle). « Isolement splendide » de 31 ans. Revirement : <span class="arret-ref">Perreux</span> (CE, 2009) — conclusions Guyomar : « lorsqu'une règle commune a vocation à être appliquée par de nombreuses juridictions, un consensus jurisprudentiel n'est jamais anodin ».</p>`,
+[{q:"Quels sont les deux raisonnements fondant l'effet direct des directives ?",a:"1) Effet utile du caractère obligatoire (Van Duyn, 1974) : si les particuliers ne pouvaient pas invoquer une disposition claire, l'obligation serait affaiblie. 2) Défaillance de l'État (Ratti, 1979) : nemo auditur — l'État ne peut opposer sa propre faute."},
+{q:"Pourquoi l'effet direct des directives est-il limité au vertical ?",a:"Parce que la reconnaissance repose sur la défaillance de l'État (non-transposition). Un particulier ne peut pas être tenu responsable de la non-transposition par l'État."},
+],[{q:"L'arrêt Ratti (1979) fonde l'effet direct des directives sur :",options:["L'effet utile","La défaillance de l'État (nemo auditur)","L'article 288 TFUE seul","La coopération loyale"],correct:1,expl:"Ratti (1979) : l'État ne peut pas opposer aux particuliers sa propre défaillance (non-transposition). Critère : disposition précise et inconditionnelle + délai dépassé + résultat non atteint."}],
+`<h4>I. L'admission de l'effet direct</h4><p>A. Effet utile (Van Duyn) et défaillance (Ratti)<br>B. Conditions d'application</p><h4>II. Les limites</h4><p>A. Vertical seulement (Marshall)<br>B. Le problème de la discrimination public/privé</p><h4>III. La réception en France</h4><p>A. Cohn-Bendit (1978) : refus<br>B. Perreux (2009) : revirement</p>`);
+
+addSubject(17,"L'invocabilité du droit de l'Union européenne",
+`<h3>I. Les quatre dimensions de l'invocabilité</h3>
+<p>1) <strong>Substitution</strong> (propre à l'effet direct) : appliquer le droit de l'UE à la place du droit national. 2) <strong>Interprétation conforme</strong> : interpréter le droit national conformément au droit de l'UE. 3) <strong>Exclusion/éviction</strong> : écarter le droit national contraire. 4) <strong>Réparation</strong> : dommages-intérêts.</p>
+<p>Selon M. Blanquet : seule la <strong>substitution</strong> est propre à l'effet direct. Les trois autres existent même sans effet direct (primauté + intégration immédiate = générales). Mais <span class="arret-ref">Popławski II</span> (2019) subordonne l'exclusion à l'effet direct (critiqué).</p>
+<h3>II. Invocabilité et effet direct / prise en considération</h3>
+<p>Effet direct = invocabilité complète (4 dimensions). Sans effet direct = invocabilités de prise en considération (interprétation conforme, exclusion sous réserve, réparation).</p>
+<div class="key-point"><strong>À retenir :</strong> L'invocabilité est un concept plus large que l'effet direct. 4 dimensions : substitution (propre à l'effet direct), interprétation conforme, exclusion, réparation. Gradation des possibilités de tirer bénéfice du droit de l'UE.</div>`,
+[{q:"Quelles sont les 4 dimensions de l'invocabilité ?",a:"1) Substitution (propre à l'effet direct) ; 2) Interprétation conforme ; 3) Exclusion/éviction ; 4) Réparation."},
+{q:"Pourquoi Popławski II (2019) est-il critiqué ?",a:"Il subordonne l'exclusion (et donc la primauté) à l'effet direct, alors que la primauté devrait jouer d'ordre juridique à ordre juridique, indépendamment des caractéristiques des normes. « Réveillez-vous. Ils sont devenus fous ! » (Rigaux et Simon)."},
+],[{q:"La substitution est :",options:["Propre à l'effet direct","Disponible pour tout acte de l'UE","Liée à la réparation","Un principe de droit international"],correct:0,expl:"La substitution (appliquer matériellement le droit de l'UE pour trancher le litige) nécessite une disposition précise et inconditionnelle, donc l'effet direct."}],
+`<h4>I. Les dimensions de l'invocabilité</h4><p>A. Substitution, interprétation conforme, exclusion, réparation<br>B. Le rapport avec l'effet direct</p><h4>II. L'invocabilité au-delà de l'effet direct</h4><p>A. Les invocabilités de prise en considération<br>B. La controverse Popławski II</p>`);
+
+addSubject(18,"Les invocabilités de prise en considération",
+`<h3>I. L'invocabilité de régularisation du droit national</h3>
+<h4>A. Interprétation conforme</h4><p><span class="arret-ref">Von Colson</span> (1984) : obligation d'interpréter le droit national « à la lumière du texte et de la finalité de la directive ». Limite : pas d'interprétation contra legem.</p>
+<h4>B. Exclusion</h4><p>Conséquence de la primauté. Problème : <span class="arret-ref">Popławski II</span> (2019) subordonne l'exclusion à l'effet direct.</p>
+<h3>II. L'invocabilité de réparation</h3>
+<div class="formula">« Le droit communautaire impose le principe selon lequel les États membres sont obligés de réparer les dommages causés aux particuliers par les violations du droit communautaire qui leur sont imputables. »<span class="source">— CJCE, Francovich, 19 novembre 1991</span></div>
+<p>3 conditions : attribution de droits, violation suffisamment caractérisée, lien de causalité direct. Étendue : même les décisions de justice (<span class="arret-ref">Köbler</span>, 2003).</p>`,
+[{q:"Qu'est-ce que l'invocabilité d'interprétation conforme ?",a:"Obligation pour le juge national d'interpréter le droit national à la lumière du droit de l'UE (Von Colson, 1984). Limite : pas d'interprétation contra legem."},
+{q:"Quelles sont les 3 conditions de Francovich ?",a:"1) La règle violée doit conférer des droits aux particuliers ; 2) Violation suffisamment caractérisée ; 3) Lien de causalité direct entre la violation et le dommage."},
+{q:"Qu'est-ce que l'arrêt Köbler (2003) ?",a:"La responsabilité de l'État pour violation du droit de l'UE s'étend aux décisions d'une juridiction statuant en dernier ressort. Le critère est le caractère manifeste de la violation."},
+],[{q:"L'arrêt Francovich (1991) consacre :",options:["L'effet direct des directives","La responsabilité de l'État pour violation du droit de l'UE","La primauté sur la Constitution","Le renvoi préjudiciel obligatoire"],correct:1,expl:"Francovich impose aux États de réparer les dommages causés par les violations du droit communautaire. 3 conditions : attribution de droits, violation caractérisée, lien de causalité."}],
+`<h4>I. La régularisation du droit national</h4><p>A. Interprétation conforme (Von Colson)<br>B. Exclusion et la controverse Popławski II</p><h4>II. La réparation</h4><p>A. Le principe (Francovich)<br>B. Les conditions<br>C. L'extension aux décisions de justice (Köbler)</p>`);
+
+addSubject(19,"Le rôle du juge national vis-à-vis du droit de l'Union européenne",
+`<h3>I. Juge de droit commun du droit de l'UE</h3><p>Les juges nationaux sont les juges de droit commun de l'ordre juridique de l'UE (avis 1/09, 2011 ; CE, Vent de colère !, 2016). Ils assurent l'application, le respect et la sanction du droit de l'UE. Rôle essentiel pour la primauté et l'invocabilité.</p>
+<h3>II. Le régime : autonomie encadrée</h3><p>Principe : <strong>autonomie institutionnelle et procédurale</strong> (les États choisissent les juridictions et procédures). Encadrement par deux principes : <strong>équivalence</strong> (pas de traitement moins favorable) et <strong>effectivité</strong> (pas d'obstacles rendant impossible l'exercice des droits).</p>
+<p>Exemple d'effectivité : <span class="arret-ref">Fallimento Olimpiclub</span> (2009) — la chose jugée ne peut pas empêcher l'application du droit de l'UE de manière indéfinie.</p>`,
+[{q:"Pourquoi les juges nationaux sont-ils les juges de droit commun du droit de l'UE ?",a:"Parce qu'ils sont des organes d'un État membre, tenus par la coopération loyale (art. 4 §3 TUE) d'assurer l'exécution du droit de l'UE. La CJUE est une juridiction d'attribution, pas le juge de droit commun."},
+{q:"Que signifient les principes d'équivalence et d'effectivité ?",a:"Équivalence : les modalités procédurales nationales ne doivent pas être moins favorables que pour des réclamations similaires de droit interne. Effectivité : elles ne doivent pas rendre impossible ou excessivement difficile l'exercice des droits conférés par le droit de l'UE."},
+],[{q:"L'autonomie institutionnelle et procédurale signifie :",options:["Que les juges nationaux sont libres de tout contrôle","Que les États choisissent les juridictions et procédures, sous réserve d'équivalence et d'effectivité","Que la CJUE impose des procédures uniformes","Que les juges nationaux ne peuvent pas appliquer le droit de l'UE"],correct:1,expl:"Les États choisissent les juridictions et procédures, mais sont encadrés par les principes d'équivalence et d'effectivité."}],
+`<h4>I. Le juge national, juge de droit commun</h4><p>A. Fondement (coopération loyale)<br>B. Rôle dans la primauté et l'invocabilité</p><h4>II. L'encadrement de l'autonomie procédurale</h4><p>A. Équivalence<br>B. Effectivité (Olimpiclub)</p>`);
+
+addSubject(20,"Le renvoi préjudiciel",
+`<h3>I. Objet et nature</h3><p>Procédure de <strong>coopération de juge à juge</strong> (<span class="arret-ref">Schwarze</span>, 1965), non contentieuse. But : uniformité d'application. Deux types : <strong>interprétation</strong> et <strong>appréciation de validité</strong> (art. 267 TFUE).</p>
+<h3>II. Conditions</h3><p><strong>Qui peut ?</strong> Toute juridiction d'un État membre (critères : origine légale, caractère permanent, compétence obligatoire, indépendance — <span class="arret-ref">Dorsch Consult</span>, 1997).</p>
+<p><strong>Qui doit ?</strong> Juridictions de dernier ressort = obligation. Toute juridiction qui veut invalider un acte (<span class="arret-ref">Foto-Frost</span>, 1987). Exceptions : <strong>acte éclairé</strong> (question déjà tranchée) et <strong>acte clair</strong> (<span class="arret-ref">CILFIT</span>, 1982 — pas de doute raisonnable).</p>
+<h3>III. Portée</h3><p>Force obligatoire pour le juge de renvoi. Portée générale (<span class="arret-ref">Da Costa</span>, 1963 ; <span class="arret-ref">ICC</span>, 1981). Portée rétroactive (sauf limitation : <span class="arret-ref">Defrenne</span>, 1976). Violation sanctionnée : manquement (<span class="arret-ref">Commission c. France</span>, 2018), responsabilité (<span class="arret-ref">Köbler</span>, 2003).</p>
+<div class="key-point"><strong>À retenir :</strong> Le renvoi préjudiciel est la « clé de voûte » du système (coopération, pas hiérarchie). Interprétation + validité. Obligatoire pour les juridictions de dernier ressort et pour invalider. Exceptions : acte éclairé, acte clair (CILFIT). Portée générale et rétroactive.</div>`,
+[{q:"Qu'est-ce que le renvoi préjudiciel ?",a:"Procédure de coopération de juge à juge (art. 267 TFUE) : un juge national pose une question à la CJUE en interprétation ou en appréciation de validité du droit de l'UE, pour assurer l'uniformité d'application."},
+{q:"Qu'est-ce que l'arrêt Foto-Frost (1987) ?",a:"Les juridictions nationales ne peuvent pas elles-mêmes invalider un acte de l'UE : elles doivent renvoyer à la Cour. Même les juridictions ne statuant pas en dernier ressort."},
+{q:"Qu'est-ce que la théorie de l'acte clair (CILFIT, 1982) ?",a:"Un juge de dernier ressort peut ne pas renvoyer si l'interprétation ne laisse « place à aucun doute raisonnable ». Doit tenir compte des versions linguistiques et du contexte du droit de l'UE."},
+{q:"Le CE a-t-il été condamné pour non-renvoi préjudiciel ?",a:"Oui : CJUE, 4 octobre 2018, Commission c. France (C-416/17) : le CE a été condamné en manquement pour ne pas avoir posé de question préjudicielle."},
+],[{q:"Le renvoi préjudiciel est obligatoire pour :",options:["Toutes les juridictions sans exception","Les juridictions de dernier ressort uniquement","Les juridictions voulant invalider un acte de l'UE","B et C"],correct:3,expl:"Obligatoire pour : (1) les juridictions de dernier ressort, et (2) toute juridiction voulant invalider un acte de l'UE (Foto-Frost, 1987)."}],
+`<h4>I. Nature et objet</h4><p>A. Coopération de juge à juge (Schwarze)<br>B. Interprétation et validité</p><h4>II. Les conditions</h4><p>A. Qui peut renvoyer (notion de juridiction)<br>B. Qui doit renvoyer (dernier ressort, Foto-Frost)<br>C. Exceptions (acte éclairé, acte clair — CILFIT)</p><h4>III. La portée</h4><p>A. Force obligatoire et portée générale<br>B. Rétroactivité et ses limites<br>C. Sanctions du non-renvoi</p>`);
+
+
+
+// =====================================================
+// AGENT IA : GEMINI HYDROGEN 4 - ÉCOUTE ET JURY D'ORAL
+// =====================================================
+let timerInterval = null;
+let speechRecognizer = null;
+let isRecording = false;
+let currentOralSubject = null;
+
+// Initialisation de la reconnaissance vocale Web Speech API
+function initSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    console.warn("API Web Speech non supportee par ce navigateur.");
+    return null;
+  }
+  const recognizer = new SpeechRecognition();
+  recognizer.continuous = true;
+  recognizer.interimResults = true;
+  recognizer.lang = 'fr-FR';
+
+  recognizer.onresult = (event) => {
+    let finalTrans = '';
+    let interimTrans = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        finalTrans += event.results[i][0].transcript + ' ';
+      } else {
+        interimTrans += event.results[i][0].transcript;
+      }
+    }
+    const tArea = document.getElementById('oralTranscript');
+    if (tArea) {
+      if (finalTrans) {
+        tArea.value += (tArea.value && !tArea.value.endsWith(' ') ? ' ' : '') + finalTrans;
+      }
+      const st = document.getElementById('liveSpeechStatus');
+      if (st) st.textContent = interimTrans ? `🎙️ En direct : "${interimTrans}"` : '🎙️ En écoute... parle distinctement.';
+    }
+  };
+
+  recognizer.onerror = (event) => {
+    console.error("Erreur de reconnaissance vocale :", event.error);
+    const status = document.getElementById('liveSpeechStatus');
+    if (status) {
+      if (event.error === 'not-allowed') {
+        status.textContent = "⚠️ Accès micro refusé. Autorise le micro dans ton navigateur ou saisis/colle tes propos ci-dessous.";
+      } else {
+        status.textContent = "⚠️ Écoute interrompue (" + event.error + "). Tu peux relancer ou continuer au clavier.";
+      }
+    }
+    stopListening();
+  };
+
+  recognizer.onend = () => {
+    if (isRecording && speechRecognizer) {
+      try { speechRecognizer.start(); } catch(e) {}
+    }
+  };
+
+  return recognizer;
+}
+
+function toggleVoiceRecognition(sid) {
+  if (!isRecording) {
+    startListening(sid);
+  } else {
+    stopListening();
+  }
+}
+
+function startListening(sid) {
+  if (!speechRecognizer) {
+    speechRecognizer = initSpeechRecognition();
+  }
+  const micBtn = document.getElementById('micToggleBtn');
+  const statusEl = document.getElementById('liveSpeechStatus');
+  
+  if (!speechRecognizer) {
+    alert("La reconnaissance vocale directe n'est pas supportée par ce navigateur (recommandé : Google Chrome / Edge). Tu peux toutefois saisir ou coller la retranscription de ton oral dans la zone de texte pour que Gemini Hydrogen 4 l'analyse !");
+    return;
+  }
+
+  try {
+    isRecording = true;
+    speechRecognizer.start();
+    if (micBtn) {
+      micBtn.classList.add('listening');
+      micBtn.innerHTML = '🛑 Arrêter l\'écoute';
+    }
+    if (statusEl) statusEl.textContent = '🎙️ Gemini Hydrogen 4 est à l\'écoute de ton oral...';
+    
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn && !startBtn.disabled) {
+      startTimer(sid);
+    }
+  } catch (err) {
+    console.error("Impossible de démarrer l'écoute vocale :", err);
+  }
+}
+
+function stopListening() {
+  isRecording = false;
+  if (speechRecognizer) {
+    try { speechRecognizer.stop(); } catch(e) {}
+  }
+  const micBtn = document.getElementById('micToggleBtn');
+  const statusEl = document.getElementById('liveSpeechStatus');
+  if (micBtn) {
+    micBtn.classList.remove('listening');
+    micBtn.innerHTML = '🎙️ Activer le micro (Écoute IA)';
+  }
+  if (statusEl && !statusEl.textContent.includes('⚠️')) {
+    statusEl.textContent = '⏸️ Écoute en pause. Tu peux relancer ou lancer l\'évaluation.';
+  }
+}
+
+// AFFICHAGE DU MODULE D'ORAL COMPLET AVEC GEMINI HYDROGEN 4
+function showOral(s) {
+  if (timerInterval) clearInterval(timerInterval);
+  stopListening();
+  currentOralSubject = s;
+
+  const container = document.getElementById('oralContent');
+  container.innerHTML = `
+    <div class="ai-agent-banner">
+      <div>
+        <div style="font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:10px;">
+          <span>🤖 Gemini Hydrogen 4 — Jury d'oral</span>
+          <span class="ai-badge-pulse"><span class="pulse-dot"></span> CONNECTÉ AU SUJET N°${s.id}</span>
+        </div>
+        <div style="font-size:0.85rem;opacity:0.9;margin-top:4px;">
+          Objectif : 10 minutes d'exposé structuré (Accroche, Problématique, I. A/B, II. A/B, Jurisprudences clés).
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-sm btn-outline" style="border-color:#facc15;color:#facc15;" onclick="loadSampleOral(${s.id})">💡 Charger une démo orale</button>
+      </div>
+    </div>
+
+    <div class="card oral-sim" id="oralSim">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;">Épreuve Orale de 10 Minutes</div>
+      <h2 style="border:none;margin:8px 0;padding:0;">« ${s.title} »</h2>
+      <div class="timer" id="timer">10:00</div>
+      
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;">
+        <button class="btn btn-primary" onclick="startTimer(${s.id})" id="startBtn">▶ Démarrer le chrono 10 min</button>
+        <button class="btn btn-outline" onclick="resetTimer(${s.id})">🔄 Réinitialiser</button>
+        <button class="btn btn-accent" onclick="showCorrige(${s.id})">📝 Plan type & Corrigé</button>
+      </div>
+
+      <!-- CONSOLE IA GEMINI HYDROGEN 4 -->
+      <div class="ai-console" style="text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+          <div>
+            <strong style="color:var(--primary);font-size:1rem;">🎙️ Retranscription & Écoute par Gemini Hydrogen 4</strong>
+            <div style="font-size:0.8rem;color:var(--muted)">Active ton micro pour parler ou colle la retranscription de ton entraînement.</div>
+          </div>
+          <span style="font-size:0.75rem;padding:3px 8px;background:var(--quote-bg);border-radius:6px;font-weight:600;">Reconnaissance vocale temps réel</span>
+        </div>
+
+        <div class="mic-btn-container">
+          <button id="micToggleBtn" class="btn-mic" onclick="toggleVoiceRecognition(${s.id})">
+            🎙️ Activer le micro (Écoute IA)
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="clearOralTranscript()">
+            🗑️ Effacer
+          </button>
+        </div>
+        
+        <div id="liveSpeechStatus" style="font-size:0.85rem;color:var(--primary-light);font-style:italic;margin-bottom:6px;min-height:20px;">
+          En attente du micro ou de la saisie...
+        </div>
+
+        <textarea id="oralTranscript" class="transcript-area" placeholder="Expose ton oral ici... L'Agent Gemini Hydrogen 4 écoute ta voix et transcrit mot à mot. Tu peux aussi taper ou enrichir le texte au clavier."></textarea>
+
+        <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end;align-items:center;">
+          <span id="aiLoadingIndicator" style="display:none;font-size:0.85rem;color:var(--primary-light);font-weight:600;">
+            ⚙️ Gemini Hydrogen 4 analyse ta prestation juridique...
+          </span>
+          <button class="btn btn-primary" onclick="evaluateOralWithAI(${s.id})" id="evalBtn" style="background:#1e3a5f;">
+            ✨ Évaluer ma prestation (Gemini Hydrogen 4)
+          </button>
+        </div>
+
+        <!-- ZONE DE FEEDBACK DE L'AGENT GEMINI -->
+        <div id="aiFeedbackBox" class="ai-feedback-box">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <h3 style="margin:0;color:var(--primary);font-size:1.25rem;">Rapport de Jury — Gemini Hydrogen 4</h3>
+                <span class="badge badge-done" id="aiAppreciationBadge">Mention Très Bien</span>
+              </div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:4px;">Évaluation détaillée selon les critères d'exigence de la L2 Droit (Pr Blanquet)</div>
+            </div>
+            <div id="scoreCircle" class="score-badge-circle" style="background:#059669;">
+              <span id="oralScoreText">16</span>
+              <span style="font-size:0.65rem;font-weight:600;opacity:0.9;">/ 20</span>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" id="aiDetailedFeedback"></div>
+
+          <!-- QUESTIONS PIÈGES DU PROF -->
+          <div class="ai-questions-block">
+            <h4 style="margin:0 0 10px 0;color:#92400e;display:flex;align-items:center;gap:8px;">
+              <span>❓ Questions de fin d'oral du Pr Blanquet (Jury) :</span>
+            </h4>
+            <div id="aiFollowupQuestions" style="font-size:0.9rem;color:#78350f;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CORRIGE TYPE -->
+    <div class="card corrige" id="corrige-${s.id}">
+      <h2>📝 Plan type d'oral — Sujet n°${s.id}</h2>
+      ${s.corrige}
+    </div>
+  `;
+}
+
+function clearOralTranscript() {
+  const t = document.getElementById('oralTranscript');
+  if (t) t.value = '';
+  const f = document.getElementById('aiFeedbackBox');
+  if (f) f.style.display = 'none';
+}
+
+function startTimer(sid) {
+  if(timerInterval) clearInterval(timerInterval);
+  let seconds = 600;
+  const timerEl = document.getElementById('timer');
+  const btn = document.getElementById('startBtn');
+  if(btn) {
+    btn.disabled = true;
+    btn.textContent = '⏱ En cours (10 min)...';
+  }
+  timerInterval = setInterval(() => {
+    seconds--;
+    const m = Math.floor(seconds/60);
+    const sec = seconds%60;
+    if(timerEl) {
+      timerEl.textContent = `${m}:${sec.toString().padStart(2,'0')}`;
+      timerEl.className = 'timer' + (seconds<=120?' danger':seconds<=300?' warning':'');
+    }
+    if(seconds<=0) {
+      clearInterval(timerInterval);
+      if(timerEl) timerEl.textContent = "⏰ 10 min écoulées !";
+      if(btn) btn.textContent = '✅ Exposé terminé';
+      stopListening();
+      showCorrige(sid);
+      const txt = document.getElementById('oralTranscript');
+      if(txt && txt.value.trim().length > 50) {
+        evaluateOralWithAI(sid);
+      }
+    }
+  }, 1000);
+}
+
+function resetTimer(sid) {
+  if(timerInterval) clearInterval(timerInterval);
+  stopListening();
+  const t = document.getElementById('timer');
+  if(t) {
+    t.textContent = '10:00';
+    t.className = 'timer';
+  }
+  const btn = document.getElementById('startBtn');
+  if(btn) {
+    btn.disabled = false;
+    btn.textContent = '▶ Démarrer le chrono 10 min';
+  }
+  const c = document.getElementById('corrige-'+sid);
+  if(c) c.classList.remove('show');
+}
+
+function showCorrige(sid) {
+  const c = document.getElementById('corrige-'+sid);
+  if(c) c.classList.toggle('show');
+}
+
+// BASE DE MOTS-CLÉS ET ATTENTES DU COURS DE M. BLANQUET PAR SUJET
+const subjectExpectations = {
+  1: {
+    keywords: ["article 2", "valeurs", "dignité", "liberté", "démocratie", "état de droit", "droits de l'homme", "article 7", "unanimité", "repubblika", "pologne", "hongrie", "conditionnalité", "2020/2092", "21 avril 2026", "contraignant", "ordre juridique commun", "identité politique"],
+    mustCite: ["Article 2 TUE", "Arrêt Repubblika (2021)", "Règlement 2020/2092", "Arrêts du 16 février 2022", "Condamnation du 21 avril 2026"],
+    questions: [
+      "L'article 2 TUE comporte deux listes. Ont-elles la même portée selon le Pr Blanquet et la CJUE ?",
+      "Pourquoi l'article 7 TUE est-il jugé inopérant en pratique face aux dérives de la Hongrie et de la Pologne ?",
+      "Quel est l'apport historique décisif de l'arrêt du 21 avril 2026 concernant la force obligatoire de l'article 2 ?"
+    ]
+  },
+  2: {
+    keywords: ["base juridique", "compétences d'attribution", "sécurité juridique", "dioxyde de titane", "but", "contenu", "contexte", "hormones", "spéciale", "générale", "centre de gravité", "tchernobyl", "base multiple", "parlement européen"],
+    mustCite: ["CJCE Dioxyde de titane (1991)", "CJCE Hormones (1988)", "CJCE Tchernobyl (1991)"],
+    questions: [
+      "Pourquoi le choix de la base juridique a-t-il une nature constitutionnelle ?",
+      "Quelle est la position critique de M. Blanquet sur le critère de protection prioritaire des prérogatives du Parlement ?",
+      "Dans quelle hypothèse la CJUE refuse-t-elle strictement le recours à une double base juridique ?"
+    ]
+  },
+  3: {
+    keywords: ["sources primaires", "bloc de primarité", "traités institutifs", "paris", "rome", "adhésion", "révision", "protocoles", "déclarations", "actes institutionnels", "1970", "1976", "tue", "tfue", "charte", "prééminence fonctionnelle", "busseni", "clause d'intégrité", "article 47", "article 40", "les verts", "charte constitutionnelle", "kadi"],
+    mustCite: ["Arrêt Les Verts (1986)", "Arrêt Kadi (2008)", "Arrêt Busseni (1990)", "Article 40 TUE"],
+    questions: [
+      "Pourquoi l'échec du traité constitutionnel de 2004 est-il qualifié par M. Blanquet de 'non-événement juridique' ?",
+      "Quelle différence fondamentale oppose la clause d'intégrité de l'art. 47 (Maastricht) et l'art. 40 (Lisbonne) ?",
+      "Pourquoi la décision de 1970 sur les ressources propres fait-elle partie du droit primaire alors que ce n'est pas un traité ?"
+    ]
+  },
+  4: {
+    keywords: ["sources dérivées", "article 288", "règlement", "directive", "décision", "recommandation", "avis", "köster", "législatif", "administratif", "délégués", "exécution", "politi", "monisme", "grimaldi", "aetr", "non classifiées", "accords interinstitutionnels", "295"],
+    mustCite: ["Article 288 TFUE", "CJCE Köster (1970)", "CJCE Politi (1971)", "CJCE Grimaldi (1989)", "CJCE AETR (1971)"],
+    questions: [
+      "Pourquoi la directive n'est-elle pas un instrument de coopération intergouvernementale ?",
+      "Quelle distinction sépare un acte délégué (art. 290) d'un acte d'exécution (art. 291) ?",
+      "Pourquoi la CJUE refuse-t-elle le formalisme pour qualifier les actes non prévus par les traités (AETR) ?"
+    ]
+  },
+  5: {
+    keywords: ["directive", "législation à deux étages", "obligation de résultat", "délai", "moyens", "adaptation", "inter-environnement wallonie", "von colson", "francovich", "royer", "effet utile", "van duyn", "ratti", "marshall", "cohn-bendit", "perreux"],
+    mustCite: ["CJCE Inter-Environnement Wallonie (1997)", "CJCE Ratti (1979)", "CJCE Marshall (1986)", "CE Cohn-Bendit (1978)", "CE Perreux (2009)"],
+    questions: [
+      "Comment la CJUE a-t-elle pu sanctionner un État avant l'expiration du délai de transposition (Inter-Environnement Wallonie) ?",
+      "Pourquoi l'effet direct des directives ne peut-il pas jouer horizontalement entre particuliers selon Marshall ?",
+      "Sur quels fondements le Conseil d'État a-t-il opéré son revirement dans l'arrêt Perreux de 2009 ?"
+    ]
+  },
+  6: {
+    keywords: ["principes généraux", "pgd", "prétorien", "inventeur", "audiolux", "rang constitutionnel", "droit primaire", "inspiration nationale", "confiance légitime", "inspiration internationale", "nold", "upa", "snip"],
+    mustCite: ["CJCE Audiolux (2009)", "CJCE Nold (1974)", "CJCE UPA (2002)", "CE SNIP (2001)"],
+    questions: [
+      "Pourquoi un PGD peut-il être qualifié de 'commun' par la Cour alors qu'il n'existait initialement qu'en Allemagne ?",
+      "Quelle est la valeur normative exacte des PGD par rapport aux traités et au droit dérivé ?",
+      "Quelle distinction fait le Conseil d'État entre les PGD du droit international et les PGD du droit de l'Union (Paulin vs SNIP) ?"
+    ]
+  },
+  7: {
+    keywords: ["droits fondamentaux", "costa", "nold", "traditions constitutionnelles", "cedh", "avis 2/94", "charte des droits fondamentaux", "nice", "lisbonne", "article 6", "avis 2/13", "kadi", "pesc", "ks et kd"],
+    mustCite: ["CJCE Nold (1974)", "Avis 2/94 (1996)", "Avis 2/13 (2014)", "Arrêt Kadi (2008)", "CJUE KS et KD (2024)"],
+    questions: [
+      "Pourquoi l'avis 2/13 a-t-il refusé l'adhésion de l'Union à la CEDH alors que le traité de Lisbonne l'imposait ?",
+      "Quelle est l'utilité maintenue des PGD pour les droits fondamentaux depuis l'entrée en vigueur de la Charte ?",
+      "Comment l'arrêt Kadi articule-t-il la protection constitutionnelle des droits fondamentaux et les résolutions de l'ONU ?"
+    ]
+  },
+  8: {
+    keywords: ["autonomie", "intégration immédiate", "intégrité", "dilution", "validité", "effectivité", "internationale handelsgesellschaft", "interprétation", "monisme", "dualisme", "neutralisation", "prohibition", "commission c. italie", "simmenthal"],
+    mustCite: ["CJCE Internationale Handelsgesellschaft (1970)", "CJCE Simmenthal (1978)", "CJCE Commission c. Italie (1972 et 1973)"],
+    questions: [
+      "Pourquoi l'autonomie du droit de l'Union ne signifie-t-elle pas séparation mais intégrité ?",
+      "Quelle différence sépare la neutralisation du dualisme (droit primaire) de la prohibition du dualisme (droit dérivé) ?",
+      "Pourquoi la notion de travailleur ou de juridiction doit-elle impérativement recevoir une qualification autonome ?"
+    ]
+  },
+  9: {
+    keywords: ["fondement de la primauté", "costa c. enel", "nature spécifique originale", "voie internationale", "voie nationale", "platonique", "limitation de compétences", "uniformité", "prééminence", "popławski ii", "euro box promotion", "article 19", "coopération loyale"],
+    mustCite: ["CJCE Costa c. E.N.E.L. (15 juillet 1964)", "CJUE Popławski II (2019)", "CJUE Euro Box Promotion (2021)"],
+    questions: [
+      "Pourquoi fonder la primauté sur l'article 55 de la Constitution française est-il qualifié de contresens par la CJUE ?",
+      "Quelle distinction M. Blanquet opère-t-il entre la prééminence et la primauté ?",
+      "Quels sont les nouveaux arguments textuels mobilisés récemment par la Cour pour refonder la primauté ?"
+    ]
+  },
+  10: {
+    keywords: ["portée de la primauté", "générale", "texte interne quel qu'il soit", "constitution", "internationale handelsgesellschaft", "droit commun", "droit particulier", "interne", "de sa propre autorité", "simmenthal", "factortame", "raisonnée", "identité nationale", "sayn-wittgenstein", "melloni", "aranyosi"],
+    mustCite: ["CJCE Simmenthal (1978)", "CJCE Factortame (1990)", "CJUE Sayn-Wittgenstein (2010)", "CJUE Melloni (2013)", "CJUE Aranyosi et Căldăraru (2016)"],
+    questions: [
+      "Pourquoi la primauté n'est-elle pas une supériorité hiérarchique classique au sens kelsénien ?",
+      "Que signifie pour le juge national l'obligation d'écarter la loi 'de sa propre autorité' (Factortame) ?",
+      "Sous quelles conditions strictes l'arrêt Aranyosi permet-il d'écarter temporairement l'exécution d'un mandat d'arrêt européen ?"
+    ]
+  },
+  11: {
+    keywords: ["primauté sur la loi", "france", "semoules", "arrighi", "ivg", "jacques vabre", "nicolo", "loi postérieure", "article 55", "article 88-1", "scea du chéneau", "french data network", "acte clair"],
+    mustCite: ["CE Semoules (1968)", "CC IVG (1975)", "Cass. Jacques Vabre (1975)", "CE Nicolo (1989)", "TC SCEA du Chéneau (2011)"],
+    questions: [
+      "Quel dilemme constitutionnel a conduit le Conseil d'État à refuser de juger la loi dans Semoules en 1968 ?",
+      "Pourquoi l'arrêt Nicolo est-il rendu 'de manière discrète' à l'occasion d'une solution négative ?",
+      "Quel est l'apport de la jurisprudence SCEA du Chéneau dans le fondement de la primauté en droit français ?"
+    ]
+  },
+  12: {
+    keywords: ["conseil constitutionnel", "constitution", "article 54", "article 88-1", "indifférenciation", "10 juin 2004", "économie numérique", "exigence constitutionnelle", "disposition expresse", "bioéthique", "protection équivalente", "2006", "identité constitutionnelle", "air france 2021"],
+    mustCite: ["CC 10 juin 2004 (2004-496 DC)", "CC 29 juillet 2004 Bioéthique", "CC 27 juillet 2006 Droit d'auteur", "CC 15 octobre 2021 Société Air France"],
+    questions: [
+      "Pourquoi le contrôle de l'article 54 sur le droit primaire est-il un moyen d'éviter le conflit de normes ?",
+      "Que reproche le Pr Blanquet au critère initial de la 'disposition expresse contraire' de 2004 ?",
+      "Quel est à ce jour le seul principe rattaché par le Conseil constitutionnel à l'identité constitutionnelle de la France ?"
+    ]
+  },
+  13: {
+    keywords: ["conseil d'état", "constitution", "sarran", "article 55", "snip", "obiter dictum", "suprématie de la constitution", "arcelor", "décret de transposition", "principe d'égalité", "équivalent", "translation du bloc de constitutionnalité", "guyomar", "french data network", "joker constitutionnel", "ultra vires"],
+    mustCite: ["CE Sarran (1998)", "CE SNIP (2001)", "CE Arcelor (2007)", "CE French Data Network (2021)"],
+    questions: [
+      "Quelle est la portée exacte de la phrase célèbre de Sarran sur l'article 55 et la Constitution ?",
+      "Décrivez précisément les étapes de la grille de contrôle établie par l'arrêt Arcelor.",
+      "Pourquoi le Conseil d'État a-t-il refusé d'exercer un contrôle ultra vires dans French Data Network en 2021 ?"
+    ]
+  },
+  14: {
+    keywords: ["conseil d'état", "droit de l'union", "kirkwood", "semoules", "nicolo", "cohn-bendit", "perreux", "alitalia", "sarran", "snip", "arcelor", "french data network", "juge de droit commun", "vent de colère", "acte clair", "shell-berre"],
+    mustCite: ["CE Kirkwood (1952)", "CE Nicolo (1989)", "CE Cohn-Bendit (1978)", "CE Perreux (2009)", "CE Vent de colère ! (2016)"],
+    questions: [
+      "Quelles ont été les étapes de la primauté des directives sur les actes administratifs (jusqu'à Alitalia) ?",
+      "Comment qualifier l'évolution globale de la posture du Conseil d'État face au droit de l'Union depuis 1968 ?",
+      "Pourquoi la France a-t-elle été condamnée en manquement en 2018 à cause du Conseil d'État ?"
+    ]
+  },
+  15: {
+    keywords: ["effet direct", "van gend en loos", "engendrer des droits", "becker", "inconditionnelle", "suffisamment précise", "substitution", "droit primaire", "règlements", "présomption", "politi", "directives", "décisions", "omc", "portugal c. conseil"],
+    mustCite: ["CJCE Van Gend en Loos (1963)", "CJCE Becker (1982)", "CJCE Politi (1971)", "CJCE Portugal c. Conseil (1999)"],
+    questions: [
+      "Quelle révolution conceptuelle sépare le critère de Van Gend en Loos de celui de l'avis Dantzig de 1928 ?",
+      "Pourquoi les règlements bénéficient-ils d'une présomption d'effet direct et dans quels cas est-elle renversée ?",
+      "Pourquoi la CJUE refuse-t-elle l'effet direct des accords de l'OMC même face à des règles claires ?"
+    ]
+  },
+  16: {
+    keywords: ["effet direct des directives", "effet utile", "van duyn", "défaillance de l'état", "nemo auditur", "ratti", "inconditionnelle", "précise", "délai dépassé", "vertical", "marshall", "pas d'horizontal", "kolpinghuis", "discrimination public privé", "cohn-bendit", "perreux"],
+    mustCite: ["CJCE Van Duyn (1974)", "CJCE Ratti (1979)", "CJCE Marshall (1986)", "CE Cohn-Bendit (1978)", "CE Perreux (2009)"],
+    questions: [
+      "Quelle est la différence fondamentale de justification entre Van Duyn (1974) et Ratti (1979) ?",
+      "Pourquoi la CJUE refuse-t-elle d'accorder un effet direct horizontal aux directives ?",
+      "Quelles conséquences concrètes crée la discrimination entre un salarié du secteur public et du secteur privé ?"
+    ]
+  },
+  17: {
+    keywords: ["invocabilité", "effet direct", "substitution", "interprétation conforme", "exclusion", "réparation", "prise en considération", "popławski ii", "ordre juridique", "conflits de normes"],
+    mustCite: ["CJCE Van Gend en Loos (1963)", "CJCE Von Colson (1984)", "CJCE Francovich (1991)", "CJUE Popławski II (2019)"],
+    questions: [
+      "Quelles sont les 4 invocabilités identifiées en doctrine et laquelle est strictement réservée à l'effet direct ?",
+      "Pourquoi M. Blanquet critique-t-il sévèrement l'arrêt Popławski II de 2019 ?",
+      "Comment un justiciable peut-il bénéficier d'une directive dépourvue d'effet direct devant le juge national ?"
+    ]
+  },
+  18: {
+    keywords: ["invocabilités de prise en considération", "régularisation", "interprétation conforme", "von colson", "marleasing", "contra legem", "exclusion", "unilever", "kücükdeveci", "popławski ii", "réparation", "francovich", "violation caractérisée", "köbler", "décision de justice"],
+    mustCite: ["CJCE Von Colson (1984)", "CJCE Marleasing (1990)", "CJCE Francovich (1991)", "CJCE Brasserie du Pêcheur (1996)", "CJCE Köbler (2003)"],
+    questions: [
+      "Quelle est la limite infranchissable de l'obligation d'interprétation conforme selon la CJUE ?",
+      "Quelles sont les trois conditions cumulatives d'engagement de la responsabilité de l'État (Francovich / Brasserie du Pêcheur) ?",
+      "Sous quelle condition la responsabilité de l'État peut-elle être engagée du fait d'une décision d'une cour suprême (Köbler) ?"
+    ]
+  },
+  19: {
+    keywords: ["juge national", "juge de droit commun", "coopération loyale", "article 4", "avis 1/09", "vent de colère", "autonomie institutionnelle et procédurale", "équivalence", "effectivité", "palmisani", "fallimento olimpiclub", "autorité de la chose jugée"],
+    mustCite: ["Avis CJUE 1/09 (2011)", "CE Vent de colère ! (2016)", "CJCE Palmisani (1997)", "CJCE Fallimento Olimpiclub (2009)"],
+    questions: [
+      "Pourquoi le juge national est-il qualifié de juge de droit commun et non la CJUE ?",
+      "Donnez un exemple concret d'application du principe d'équivalence procédurale.",
+      "Comment le principe d'effectivité a-t-il conduit la CJUE à écarter l'autorité de la chose jugée dans Fallimento Olimpiclub ?"
+    ]
+  },
+  20: {
+    keywords: ["renvoi préjudiciel", "article 267", "coopération de juge à juge", "schwarze", "clé de voûte", "interprétation", "appréciation de validité", "notion de juridiction", "dorsch consult", "indépendance", "dernier ressort", "foto-frost", "invalidation", "acte éclairé", "acte clair", "cilfit", "commission c. france 2018"],
+    mustCite: ["CJCE Firma Schwarze (1965)", "CJCE Dorsch Consult (1997)", "CJCE Foto-Frost (1987)", "CJCE CILFIT (1982)", "CJUE Commission c. France (2018)"],
+    questions: [
+      "Pourquoi le renvoi préjudiciel est-il une procédure de coopération et non une voie de recours hiérarchique ?",
+      "Dans quelles hypothèses un juge qui ne statue pas en dernier ressort est-il néanmoins obligé de renvoyer (Foto-Frost) ?",
+      "Quels critères stricts la jurisprudence CILFIT impose-t-elle pour qu'un juge puisse invoquer la théorie de l'acte clair ?"
+    ]
+  }
+};
+
+// SIMULATION D'ORAL ÉCHANTILLON
+function loadSampleOral(sid) {
+  const exp = subjectExpectations[sid] || subjectExpectations[1];
+  const s = currentOralSubject || subjects[0];
+  const txt = document.getElementById('oralTranscript');
+  if (!txt) return;
+
+  txt.value = `Monsieur le Professeur, mesdames et messieurs les membres du jury,
+
+J'ai l'honneur de vous présenter mon exposé portant sur le sujet : « ${s.title} ».
+
+Pour introduire ce sujet, il convient de rappeler l'importance structurelle de cette question dans l'ordre juridique de l'Union européenne. En effet, comme l'enseigne le Professeur Marc Blanquet, ce thème touche directement à l'identité même de l'intégration communautaire.
+
+Dans un premier temps (I), nous analyserons les fondements et la consécration jurisprudentielle de cette notion. Il faut impérativement mobiliser ici les grands arrêts de principe de la Cour de justice, notamment ${exp.mustCite.slice(0, 2).join(' ainsi que ')}. Ces décisions démontrent la volonté du juge européen de préserver l'autonomie et l'uniformité du droit de l'Union, tout en affirmant des exigences qui s'imposent à l'ensemble des États membres.
+
+Dans un second temps (II), il convient d'en mesurer la portée exacte, mais aussi les difficultés et tempéraments constatés en pratique. Nous devons examiner la manière dont les juridictions nationales, et en particulier le Conseil d'État et le Conseil constitutionnel français, ont reçu ces exigences. Si des résistances initiales ont pu exister, l'évolution récente marquée notamment par ${exp.mustCite[2] || "la jurisprudence contemporaine"} met en place une véritable articulation entre les ordres juridiques.
+
+En conclusion, ce sujet illustre parfaitement la transformation d'un droit initialement économique en un ordre juridique sophistiqué reposant sur un équilibre subtil entre exigences communes et respect des identités nationales.`;
+
+  const st = document.getElementById('liveSpeechStatus');
+  if (st) st.textContent = "💡 Démo d'oral juridique chargée. Clique sur 'Évaluer ma prestation' pour lancer Gemini Hydrogen 4.";
+}
+
+// MOTEUR D'ÉVALUATION ET DE CORRECTION PAR GEMINI HYDROGEN 4
+function evaluateOralWithAI(sid) {
+  const tArea = document.getElementById('oralTranscript');
+  const speechText = tArea ? tArea.value.trim() : '';
+
+  if (!speechText || speechText.length < 40) {
+    alert("Ton oral est trop court ou vide. Parle dans ton micro ou saisis au moins quelques phrases de ton exposé pour que l'Agent Gemini Hydrogen 4 puisse l'évaluer !");
+    return;
+  }
+
+  const indicator = document.getElementById('aiLoadingIndicator');
+  const evalBtn = document.getElementById('evalBtn');
+  if (indicator) indicator.style.display = 'inline';
+  if (evalBtn) evalBtn.disabled = true;
+
+  setTimeout(() => {
+    if (indicator) indicator.style.display = 'none';
+    if (evalBtn) evalBtn.disabled = false;
+    generateAIFeedback(sid, speechText);
+  }, 700);
+}
+
+function generateAIFeedback(sid, text) {
+  const s = currentOralSubject || subjects.find(sub => sub.id === sid) || subjects[0];
+  const exp = subjectExpectations[sid] || subjectExpectations[1];
+  const lower = text.toLowerCase();
+
+  // Analyse des critères
+  let foundKeywords = [];
+  let missedKeywords = [];
+  exp.keywords.forEach(kw => {
+    if (lower.includes(kw.toLowerCase())) foundKeywords.push(kw);
+    else missedKeywords.push(kw);
+  });
+
+  let foundArrêts = [];
+  let missedArrêts = [];
+  exp.mustCite.forEach(ar => {
+    const simplified = ar.toLowerCase().replace(/cjce|cjue|ce|cc|cass|arrêt|décision/g, '').trim();
+    if (lower.includes(simplified) || lower.includes(ar.toLowerCase())) {
+      foundArrêts.push(ar);
+    } else {
+      missedArrêts.push(ar);
+    }
+  });
+
+  // Détection de structure
+  const hasIntro = lower.includes('introduc') || lower.includes('problématique') || lower.includes('honneur') || lower.includes('rappeler');
+  const hasPlan = (lower.includes('premier temps') || lower.includes('première partie') || lower.includes(' i ') || lower.includes('i.')) &&
+                  (lower.includes('second temps') || lower.includes('seconde partie') || lower.includes(' ii ') || lower.includes('ii.'));
+  const hasConcl = lower.includes('conclu') || lower.includes('en somme') || lower.includes('en définitive');
+
+  // Calcul de la note sur 20
+  let score = 8;
+  const kwRatio = foundKeywords.length / exp.keywords.length;
+  score += Math.round(kwRatio * 6);
+  if (foundArrêts.length > 0) score += Math.min(3, foundArrêts.length * 1.5);
+  if (hasIntro) score += 1;
+  if (hasPlan) score += 1.5;
+  if (hasConcl) score += 0.5;
+  if (text.length > 600) score += 1;
+  score = Math.min(20, Math.max(5, Math.round(score)));
+
+  // Affichage du résultat
+  const box = document.getElementById('aiFeedbackBox');
+  const scoreText = document.getElementById('oralScoreText');
+  const scoreCircle = document.getElementById('scoreCircle');
+  const badge = document.getElementById('aiAppreciationBadge');
+  const detailedEl = document.getElementById('aiDetailedFeedback');
+  const questionsEl = document.getElementById('aiFollowupQuestions');
+
+  scoreText.textContent = score;
+
+  if (score >= 16) {
+    scoreCircle.style.background = '#059669';
+    badge.className = 'badge badge-done';
+    badge.textContent = 'Excellent — Mention Très Bien';
+  } else if (score >= 13) {
+    scoreCircle.style.background = '#2563eb';
+    badge.className = 'badge badge-done';
+    badge.textContent = 'Bonne prestation — Maîtrise solide';
+  } else if (score >= 10) {
+    scoreCircle.style.background = '#d97706';
+    badge.className = 'badge';
+    badge.style.background = '#fef3c7';
+    badge.style.color = '#92400e';
+    badge.textContent = 'Moyen — Manque de précision juridique';
+  } else {
+    scoreCircle.style.background = '#dc2626';
+    badge.className = 'badge badge-todo';
+    badge.textContent = 'Insuffisant — Cours non maîtrisé';
+  }
+
+  detailedEl.innerHTML = `
+    <div style="margin-bottom:14px;padding:12px;background:#fff;border-radius:8px;border:1px solid var(--border);">
+      <strong style="color:var(--primary);display:block;margin-bottom:6px;">⚖️ Évaluation Globale de Gemini Hydrogen 4 :</strong>
+      <p style="font-size:0.92rem;margin:0;line-height:1.6;">
+        ${score >= 14 ? 
+          `Très belle prestation sur le sujet <em>« ${s.title} »</em> ! Votre exposé est charpenté et mobilise le vocabulaire technique attendu par le Professeur Blanquet.` : 
+          `Prestation encourageante mais perfectible. Sur une épreuve orale de 10 minutes, vous devez être beaucoup plus percutant sur la structure (I/II) et citer nommément les arrêts cardinaux.`}
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:8px;">
+        <strong style="color:#166534;font-size:0.88rem;">✅ Points forts & notions bien identifiées :</strong>
+        <ul style="margin:6px 0 0 16px;font-size:0.83rem;color:#14532d;">
+          ${foundArrêts.map(a => `<li>Jurisprudence citée : <strong>${a}</strong></li>`).join('')}
+          ${hasPlan ? '<li>Annonce claire d\'un plan bipartite (I / II)</li>' : ''}
+          ${hasIntro ? '<li>Phase d\'introduction présente</li>' : ''}
+          ${foundKeywords.slice(0, 4).map(k => `<li>Concept maîtrisé : <em>${k}</em></li>`).join('')}
+          ${foundKeywords.length === 0 ? '<li>Effort d\'élocution et prise de parole effectuée.</li>' : ''}
+        </ul>
+      </div>
+
+      <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:8px;">
+        <strong style="color:#991b1b;font-size:0.88rem;">⚠️ Axes de progrès & Oublis majeurs :</strong>
+        <ul style="margin:6px 0 0 16px;font-size:0.83rem;color:#7f1d1d;">
+          ${missedArrêts.slice(0, 3).map(a => `<li>Arrêt essentiel à citer : <strong>${a}</strong></li>`).join('')}
+          ${!hasPlan ? '<li>Structure : annoncez clairement vos deux parties (I. A/B et II. A/B).</li>' : ''}
+          ${missedKeywords.slice(0, 3).map(k => `<li>Mots-clés attendus absents : <em>${k}</em></li>`).join('')}
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding:12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;font-size:0.88rem;">
+      <strong style="color:var(--primary);">💡 Conseil méthodologique du Jury :</strong>
+      <div style="margin-top:4px;color:var(--text);">
+        En droit européen en L2, la note se joue sur <strong>l'exactitude des formulations jurisprudentielles</strong>. Utilisez les citations textuelles de la Cour (ex. <em>« nature spécifique originale »</em>, <em>« charte constitutionnelle de base »</em>, <em>« de sa propre autorité »</em>) et mettez en valeur les analyses doctrinales du Pr Blanquet.
+      </div>
+    </div>
+  `;
+
+  // Questions du prof
+  questionsEl.innerHTML = `
+    <ol style="margin:4px 0 0 20px;line-height:1.7;">
+      ${exp.questions.map(q => `<li><strong>${q}</strong></li>`).join('')}
+    </ol>
+    <div style="margin-top:10px;font-size:0.82rem;color:#78350f;font-style:italic;">
+      👉 Consultez l'onglet "Fiches" ou le "Corrigé détaillé" ci-dessus pour vérifier vos réponses à ces questions !
+    </div>
+  `;
+
+  box.style.display = 'block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+</script>
+<script>
+// =====================================================
+// APPLICATION LOGIQUE GLOBALE
+// =====================================================
+let currentSubject = subjects[0];
+let currentView = 'dashboard';
+let completedSubjects = new Set(JSON.parse(localStorage.getItem('lex_europa_completed') || '[]'));
+
+// GESTION DU THÈME SOMBRE / CLAIR
+function initTheme() {
+  const saved = localStorage.getItem('lex_europa_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeButton(saved);
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('lex_europa_theme', next);
+  updateThemeButton(next);
+}
+
+function updateThemeButton(theme) {
+  const icon = document.getElementById('themeBtnIcon');
+  const txt = document.getElementById('themeBtnText');
+  if (theme === 'dark') {
+    icon.textContent = '☀️';
+    txt.textContent = 'Mode Clair';
+  } else {
+    icon.textContent = '🌙';
+    txt.textContent = 'Mode Sombre';
+  }
+}
+
+// CHANGEMENT DE VUE
+function switchView(viewName) {
+  currentView = viewName;
+  document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + viewName);
+  if (target) target.classList.add('active');
+
+  // Mise à jour de la classe active sur le menu sidebar
+  document.querySelectorAll('.nav-menu .nav-item').forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('onclick').includes(viewName)) {
+      item.classList.add('active');
+    }
+  });
+
+  // Titre dans la barre supérieure
+  const titleMap = {
+    'dashboard': 'Tableau de bord de révision',
+    'fiches': `Fiche : Sujet n°${currentSubject.id} — ${currentSubject.title}`,
+    'flashcards': `Flashcards : Sujet n°${currentSubject.id}`,
+    'quiz': `Quiz : Sujet n°${currentSubject.id}`,
+    'oral': `Simulation d'oral : Sujet n°${currentSubject.id}`
+  };
+  document.getElementById('currentViewTitle').textContent = titleMap[viewName] || 'Révision Droit Européen';
+
+  // Rendu de la vue demandée
+  if (viewName === 'fiches') renderFiche(currentSubject);
+  if (viewName === 'flashcards') renderFlashcards(currentSubject);
+  if (viewName === 'quiz') renderQuiz(currentSubject);
+  if (viewName === 'oral') renderOralView(currentSubject);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// NAVIGATION SUJETS DANS LA SIDEBAR
+function renderSidebarSubjects() {
+  const ul = document.getElementById('sidebarSubjectsUl');
+  ul.innerHTML = '';
+  subjects.forEach(s => {
+    const li = document.createElement('li');
+    li.className = 'sub-item' + (s.id === currentSubject.id ? ' active' : '') + (completedSubjects.has(s.id) ? ' done' : '');
+    li.id = `sidebar-sub-${s.id}`;
+    li.innerHTML = `
+      <span class="s-num">${s.id}.</span>
+      <span style="flex:1;">${s.title}</span>
+      <span class="status-dot"></span>
+    `;
+    li.onclick = () => selectSubject(s);
+    ul.appendChild(li);
+  });
+  updateDashboardProgress();
+}
+
+function filterSidebarSubjects(val) {
+  const term = val.toLowerCase();
+  document.querySelectorAll('#sidebarSubjectsUl .sub-item').forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(term) ? 'flex' : 'none';
+  });
+}
+
+function selectSubject(s) {
+  currentSubject = s;
+  document.querySelectorAll('#sidebarSubjectsUl .sub-item').forEach(it => it.classList.remove('active'));
+  const activeEl = document.getElementById(`sidebar-sub-${s.id}`);
+  if (activeEl) activeEl.classList.add('active');
+
+  // Si on est sur le dashboard, on ouvre la fiche
+  if (currentView === 'dashboard') {
+    switchView('fiches');
+  } else {
+    switchView(currentView);
+  }
+}
+
+// RENDU DU DASHBOARD & PROGRESSION
+function renderDashboardMatrix() {
+  const grid = document.getElementById('matrixGrid');
+  grid.innerHTML = '';
+  subjects.forEach(s => {
+    const isDone = completedSubjects.has(s.id);
+    const tile = document.createElement('div');
+    tile.className = 'subject-tile' + (isDone ? ' done' : '');
+    tile.innerHTML = `
+      <div>
+        <div class="tile-head">
+          <span class="tile-num">SUJET ${s.id}</span>
+          <span class="badge-pill" style="font-size:0.65rem;${isDone ? 'background:rgba(16,185,129,0.15);color:#10b981;' : ''}">
+            ${isDone ? '✓ Révisé' : 'À travailler'}
+          </span>
+        </div>
+        <div class="tile-title">${s.title}</div>
+      </div>
+      <div class="tile-footer">
+        <span>🃏 ${s.flashcards.length} flashcards</span>
+        <span>✅ ${s.quiz.length} QCM</span>
+      </div>
+    `;
+    tile.onclick = () => {
+      selectSubject(s);
+      switchView('fiches');
+    };
+    grid.appendChild(tile);
+  });
+}
+
+function updateDashboardProgress() {
+  const count = completedSubjects.size;
+  const pct = Math.round((count / subjects.length) * 100);
+
+  document.getElementById('kpiDoneCount').textContent = count;
+  document.getElementById('kpiDonePercent').textContent = `${pct}% du programme validé`;
+  document.getElementById('sidebarProgressCount').textContent = `${count}/${subjects.length}`;
+  document.getElementById('topPercentLabel').textContent = `${pct}%`;
+  document.getElementById('topProgressBar').style.width = `${pct}%`;
+
+  localStorage.setItem('lex_europa_completed', JSON.stringify(Array.from(completedSubjects)));
+}
+
+function markSubjectCompleted(sid) {
+  completedSubjects.add(sid);
+  updateDashboardProgress();
+  renderSidebarSubjects();
+  renderDashboardMatrix();
+}
+
+// RENDU DES FICHES
+function renderFiche(s) {
+  markSubjectCompleted(s.id);
+  const container = document.getElementById('ficheContainer');
+  container.innerHTML = `
+    <div class="content-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+        <span class="badge-pill" style="background:var(--gold-glow);color:var(--gold);font-weight:700;">SUJET N°${s.id}</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm btn-outline" onclick="switchView('flashcards')">🃏 S'entraîner en flashcards</button>
+          <button class="btn btn-sm btn-gold" onclick="switchView('oral')">🎤 Passer l'oral</button>
+        </div>
+      </div>
+      <h2>${s.title}</h2>
+      ${s.fiche}
+    </div>
+  `;
+}
+
+// RENDU DES FLASHCARDS
+function renderFlashcards(s) {
+  document.getElementById('fcSubjectTitle').textContent = `Flashcards — Sujet n°${s.id} : ${s.title}`;
+  document.getElementById('fcCurrentCountBadge').textContent = `${s.flashcards.length} cartes`;
+  const grid = document.getElementById('flashcardsGrid');
+  grid.innerHTML = '';
+
+  s.flashcards.forEach(fc => {
+    const card = document.createElement('div');
+    card.className = 'flashcard-modern';
+    card.innerHTML = `
+      <div class="fc-q">❓ ${fc.q}</div>
+      <div class="fc-hint">Cliquer pour révéler la solution juridique</div>
+      <div class="fc-a">⚖️ ${fc.a}</div>
+    `;
+    card.onclick = () => card.classList.toggle('revealed');
+    grid.appendChild(card);
+  });
+}
+
+// RENDU DU QUIZ
+function renderQuiz(s) {
+  document.getElementById('quizSubjectTitle').textContent = `Quiz — Sujet n°${s.id} : ${s.title}`;
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+
+  s.quiz.forEach((q, qIndex) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.id = `q-card-${s.id}-${qIndex}`;
+    
+    let optsHtml = '';
+    q.options.forEach((opt, oIndex) => {
+      optsHtml += `<div class="quiz-opt" onclick="handleQuizAnswer(${s.id}, ${qIndex}, ${oIndex}, ${q.correct})">${opt}</div>`;
+    });
+
+    card.innerHTML = `
+      <div class="quiz-q-title">${qIndex + 1}. ${q.q}</div>
+      ${optsHtml}
+      <div class="quiz-expl">${q.expl}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function handleQuizAnswer(sid, qIndex, selected, correct) {
+  const card = document.getElementById(`q-card-${sid}-${qIndex}`);
+  const opts = card.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.classList.add('disabled');
+    if (i === correct) o.classList.add('correct');
+    if (i === selected && i !== correct) o.classList.add('wrong');
+  });
+  card.querySelector('.quiz-expl').style.display = 'block';
+}
+
+// RENDU DU MODULE D'ORAL AVEC GEMINI HYDROGEN 4
+let oralSecondsRemaining = 600;
+let isOralTimerRunning = false;
+
+function renderOralView(s) {
+  currentOralSubject = s;
+  document.getElementById('oralSubjectHead').textContent = `Sujet n°${s.id} — « ${s.title} »`;
+  document.getElementById('corrigeContainer').innerHTML = `
+    <h3 style="margin-top:0;font-family:'Cinzel',serif;color:var(--text-main);">Plan type & Corrigé de l'épreuve</h3>
+    ${s.corrige}
+  `;
+  document.getElementById('corrigeContainer').classList.remove('show');
+  document.getElementById('juryFeedbackBox').style.display = 'none';
+  resetOralTimer();
+}
+
+function toggleTimer() {
+  if (isOralTimerRunning) {
+    pauseOralTimer();
+  } else {
+    startOralTimer();
+  }
+}
+
+function startOralTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  isOralTimerRunning = true;
+  const btn = document.getElementById('oralStartBtn');
+  btn.textContent = '⏸ Pause Chrono';
+  btn.className = 'btn btn-outline';
+
+  timerInterval = setInterval(() => {
+    oralSecondsRemaining--;
+    updateOralTimerDisplay();
+    if (oralSecondsRemaining <= 0) {
+      clearInterval(timerInterval);
+      isOralTimerRunning = false;
+      document.getElementById('oralMainTimer').textContent = "00:00 (Fin)";
+      btn.textContent = '✅ 10 min terminées';
+      stopListening();
+      toggleCorrigeView();
+      const txt = document.getElementById('transcriptTextarea').value.trim();
+      if (txt.length > 50) runAIEvaluation();
+    }
+  }, 1000);
+}
+
+function pauseOralTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  isOralTimerRunning = false;
+  const btn = document.getElementById('oralStartBtn');
+  btn.textContent = '▶ Reprendre le chrono';
+  btn.className = 'btn btn-primary';
+}
+
+function resetOralTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  isOralTimerRunning = false;
+  oralSecondsRemaining = 600;
+  updateOralTimerDisplay();
+  const btn = document.getElementById('oralStartBtn');
+  if (btn) {
+    btn.textContent = '▶ Démarrer le chrono 10 min';
+    btn.className = 'btn btn-primary';
+  }
+}
+
+function updateOralTimerDisplay() {
+  const m = Math.floor(oralSecondsRemaining / 60);
+  const s = oralSecondsRemaining % 60;
+  const el = document.getElementById('oralMainTimer');
+  if (!el) return;
+  el.textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  el.className = 'oral-timer-display' + (oralSecondsRemaining <= 120 ? ' danger' : oralSecondsRemaining <= 300 ? ' warning' : '');
+}
+
+function toggleCorrigeView() {
+  const box = document.getElementById('corrigeContainer');
+  box.classList.toggle('show');
+}
+
+function clearOralText() {
+  document.getElementById('transcriptTextarea').value = '';
+  document.getElementById('juryFeedbackBox').style.display = 'none';
+}
+
+function loadSampleDemoOral() {
+  loadSampleOral(currentSubject.id);
+  const txt = document.getElementById('oralTranscript');
+  if (txt) {
+    document.getElementById('transcriptTextarea').value = txt.value;
+  }
+  document.getElementById('micStatusText').textContent = "💡 Démo d'oral juridique chargée. Cliquez sur 'Évaluer ma prestation' pour lancer Gemini Hydrogen 4.";
+}
+
+function toggleMicrophone() {
+  if (!isRecording) {
+    startListening(currentSubject.id);
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('micBtn').innerHTML = '🛑 Arrêter l\'écoute vocale';
+    document.getElementById('micStatusText').textContent = '🎙️ Gemini Hydrogen 4 est à l\'écoute de votre exposé... Parlez clairement.';
+    if (!isOralTimerRunning) startOralTimer();
+  } else {
+    stopListening();
+    document.getElementById('micBtn').classList.remove('listening');
+    document.getElementById('micBtn').innerHTML = '🎙️ Activer le micro (Écoute IA)';
+    document.getElementById('micStatusText').textContent = '⏸️ Écoute vocale arrêtée.';
+  }
+}
+
+function runAIEvaluation() {
+  const text = document.getElementById('transcriptTextarea').value.trim();
+  if (!text || text.length < 35) {
+    alert("Veuillez dicter ou saisir quelques lignes d'exposé avant de solliciter l'évaluation de Gemini Hydrogen 4.");
+    return;
+  }
+  const th = document.getElementById('aiThinkingStatus');
+  th.style.display = 'inline';
+
+  setTimeout(() => {
+    th.style.display = 'none';
+    const exp = subjectExpectations[currentSubject.id] || subjectExpectations[1];
+    const s = currentSubject;
+    const lower = text.toLowerCase();
+
+    let foundKw = exp.keywords.filter(k => lower.includes(k.toLowerCase()));
+    let missedKw = exp.keywords.filter(k => !lower.includes(k.toLowerCase()));
+    let foundArr = exp.mustCite.filter(a => lower.includes(a.toLowerCase().replace(/cjce|cjue|ce|cc|arrêt/g, '').trim()));
+    let missedArr = exp.mustCite.filter(a => !lower.includes(a.toLowerCase().replace(/cjce|cjue|ce|cc|arrêt/g, '').trim()));
+
+    const hasPlan = (lower.includes('premier temps') || lower.includes('première partie') || lower.includes('i.') || lower.includes(' i ')) &&
+                    (lower.includes('second temps') || lower.includes('seconde partie') || lower.includes('ii.') || lower.includes(' ii '));
+    const hasIntro = lower.includes('introduc') || lower.includes('problématique') || lower.includes('honneur') || lower.includes('rappeler');
+
+    let score = 9;
+    score += Math.round((foundKw.length / exp.keywords.length) * 5);
+    score += Math.min(3, foundArr.length * 1.5);
+    if (hasPlan) score += 2;
+    if (hasIntro) score += 1;
+    score = Math.min(20, Math.max(6, Math.round(score)));
+
+    // Rendu graphique du feedback
+    const box = document.getElementById('juryFeedbackBox');
+    const scoreNum = document.getElementById('scoreDisplayNum');
+    const badge = document.getElementById('scoreAppreciationBadge');
+    scoreNum.textContent = score;
+
+    if (score >= 16) {
+      badge.textContent = "Mention Très Bien — Maîtrise Exceptionnelle";
+      badge.style.background = "var(--success)";
+    } else if (score >= 13) {
+      badge.textContent = "Mention Assez Bien — Solide";
+      badge.style.background = "#2563eb";
+    } else if (score >= 10) {
+      badge.textContent = "Admis — Notions présentes mais plan à muscler";
+      badge.style.background = "#d97706";
+    } else {
+      badge.textContent = "Ajourné — Cours insuffisant";
+      badge.style.background = "var(--error)";
+    }
+
+    document.getElementById('juryDetailedFeedbackContent').innerHTML = `
+      <div style="background:var(--bg-card-subtle);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;">
+        <strong style="color:var(--text-main);">⚖️ Rapport synthétique du Jury :</strong>
+        <p style="margin:6px 0 0;font-size:0.92rem;color:var(--text-secondary);">
+          ${score >= 14 ? 
+            `Excellente soutenance orale sur <em>« ${s.title} »</em>. Vous démontrez une compréhension fine de la doctrine de M. Blanquet.` : 
+            `Exposé honorable mais vous devez soigner la rigueur de vos articulations juridiques et citer impérativement les jurisprudences de référence.`}
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+        <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:14px;">
+          <strong style="color:var(--success);font-size:0.88rem;">✅ Points forts détectés :</strong>
+          <ul style="margin:8px 0 0 16px;font-size:0.83rem;color:var(--text-main);">
+            ${foundArr.map(a => `<li>Arrêt maîtrisé : <strong>${a}</strong></li>`).join('')}
+            ${hasPlan ? '<li>Structure bipartite claire (I / II)</li>' : ''}
+            ${hasIntro ? '<li>Phase introductive identifiée</li>' : ''}
+            ${foundKw.slice(0, 4).map(k => `<li>Notion clé : <em>${k}</em></li>`).join('')}
+            ${foundKw.length === 0 ? '<li>Prise de parole fluide et articulation correcte.</li>' : ''}
+          </ul>
+        </div>
+
+        <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:14px;">
+          <strong style="color:var(--error);font-size:0.88rem;">⚠️ Points à consolider :</strong>
+          <ul style="margin:8px 0 0 16px;font-size:0.83rem;color:var(--text-main);">
+            ${missedArr.slice(0, 3).map(a => `<li>Jurisprudence oubliée : <strong>${a}</strong></li>`).join('')}
+            ${!hasPlan ? '<li>Annoncez explicitement un plan I. A/B et II. A/B</li>' : ''}
+            ${missedKw.slice(0, 3).map(k => `<li>Terme technique attendu : <em>${k}</em></li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('juryQuestionsList').innerHTML = `
+      <ol style="margin:6px 0 0 20px;line-height:1.7;">
+        ${exp.questions.map(q => `<li><strong>${q}</strong></li>`).join('')}
+      </ol>
+    `;
+
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    markSubjectCompleted(s.id);
+  }, 600);
+}
+
+// SYNCHRONISATION SPEECH VOCAL VERS TEXTAREA
+setInterval(() => {
+  const transEl = document.getElementById('oralTranscript');
+  const mainArea = document.getElementById('transcriptTextarea');
+  if (transEl && mainArea && isRecording && transEl.value) {
+    mainArea.value = transEl.value;
+  }
+}, 500);
+
+// INITIALISATION AU CHARGEMENT DE LA PAGE
+window.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  renderSidebarSubjects();
+  renderDashboardMatrix();
+
+  // Mise à jour des compteurs globaux
+  let totalFc = 0, totalQuiz = 0;
+  subjects.forEach(s => {
+    totalFc += s.flashcards.length;
+    totalQuiz += s.quiz.length;
+  });
+  document.getElementById('kpiFcTotal').textContent = totalFc;
+  document.getElementById('kpiQuizTotal').textContent = totalQuiz;
+  document.getElementById('navFcCount').textContent = totalFc;
+  document.getElementById('navQuizCount').textContent = totalQuiz;
+
+  // Affichage vue initiale
+  switchView('dashboard');
+});
+</script>
+</body>
+</html>
